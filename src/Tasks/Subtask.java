@@ -39,16 +39,6 @@ public class Subtask {
         return Objects.equals(sub.subtaskName, this.subtaskName) && Objects.equals(sub.subtaskStatus, this.subtaskStatus);
     }
 
-    public void executionTask(Statuses status) {
-        if (status == Statuses.DONE) {
-            System.out.println("Подзадача выполнена");
-            setSubtaskStatus(status);
-        } else if(status == Statuses.IN_PROGRESS){
-            System.out.println("Так держать");
-            setSubtaskStatus(status);
-        }
-    }
-
     public String getSubtaskName() {
         return subtaskName;
     }

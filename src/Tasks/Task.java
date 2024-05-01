@@ -43,16 +43,6 @@ public class Task {
         return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description) && status == task.status;
     }
 
-    public void executionTask(Statuses status) {
-        if (status == Statuses.DONE) {
-            System.out.println("Задача выполнена, молодцы");
-            setStatus(status);
-        } else if (status == Statuses.IN_PROGRESS) {
-            System.out.println("Так держать");
-            setStatus(status);
-        }
-    }
-
     public void setStatus(Statuses status) {
         if (status != Statuses.DONE && status != Statuses.IN_PROGRESS) {
             System.out.println("Такого статуса нет");

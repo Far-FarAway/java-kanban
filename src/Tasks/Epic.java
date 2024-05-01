@@ -24,17 +24,21 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        String result = super.toString();
-        if(subtasksList == null){
-            result += "\nПодзадач пока нет";
-        } else {
-            result += "\n"+subtasksList;
-        }
+        String result = "ID: " + id;
+        if (name == null){ result += ""; }
+        else { result += "\n" + name; }
+
+        if (description == null) { result += ""; }
+        else { result += "\n" + description; }
+
+        checkStatus();
+        result += "\nСтатус: " + status;
+
+        if(subtasksList == null){ result += "\nПодзадач пока нет"; }
+        else { result += "\n"+subtasksList; }
 
         return result;
     }
-
-
 
     @Override
     public boolean equals(Object o){
@@ -44,26 +48,20 @@ public class Epic extends Task {
         return Objects.equals(epic.subtasksList, this.subtasksList);
     }
 
-    @Override
-    public void executionTask(Statuses status) {
-        if(status == Statuses.DONE) {
-            int count = 0;
-            for (Subtask subtask : subtasksList) {
-                if (subtask.getSubtaskStatus() == Statuses.DONE) {
-                    count++;
-                }
+    public void checkStatus() {
+        int count = 0;
+        for (Subtask subtask : subtasksList) {
+            if (subtask.getSubtaskStatus() == Statuses.DONE) {
+                count++;
             }
+        }
 
-            if (count == subtasksList.size()) {
-                System.out.println("Задача полностью выполнена");
-                setStatus(Statuses.DONE);
-            } else {
-                System.out.println("Вы не выполнили некоторые задачи");
-            }
-        } else if(status == Statuses.IN_PROGRESS){
-            System.out.println("Так держать");
-            setStatus(status);
+        if (count == subtasksList.size()) {
+            setStatus(Statuses.DONE);
+        } else {
+            setStatus(Statuses.IN_PROGRESS);
         }
 
     }
 }
+
