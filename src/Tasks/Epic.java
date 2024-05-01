@@ -16,10 +16,12 @@ public class Epic extends Task {
         subtasksList.add(subtask);
     }
 
-    public void printSubtasks() {
-        for (Subtask subtask : subtasksList) {
-            subtask.toString();
+    public String printSubtasks() {
+        String result = "";
+        for(int i = 0; i < subtasksList.size(); i++){
+            result += (i+1)+". " + subtasksList.get(i) + "\n";
         }
+        return result;
     }
 
     @Override
@@ -29,13 +31,13 @@ public class Epic extends Task {
         else { result += "\n" + name; }
 
         if (description == null) { result += ""; }
-        else { result += "\n" + description; }
+        else { result += "\nОписание: " + description; }
 
         checkStatus();
-        result += "\nСтатус: " + status;
+        result += "\nСтатус: " + status + "\nПодзадачи: \n";
 
         if(subtasksList == null){ result += "\nПодзадач пока нет"; }
-        else { result += "\n"+subtasksList; }
+        else { result += printSubtasks(); }
 
         return result;
     }
@@ -58,8 +60,10 @@ public class Epic extends Task {
 
         if (count == subtasksList.size()) {
             setStatus(Statuses.DONE);
-        } else {
+        } else if(count > 0) {
             setStatus(Statuses.IN_PROGRESS);
+        } else {
+            setStatus(Statuses.NEW);
         }
 
     }

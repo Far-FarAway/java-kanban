@@ -7,7 +7,7 @@ public class Subtask {
     protected Statuses subtaskStatus;
     protected String description;
 
-    public Subtask(String description, String subtaskName) {
+    public Subtask(String subtaskName, String description) {
         this.description = description;
         this.subtaskName = subtaskName;
         subtaskStatus = Statuses.NEW;
@@ -21,7 +21,7 @@ public class Subtask {
         else { result += subtaskName; }
 
         if (description == null) { result += ""; }
-        else { result += "\n" + description; }
+        else { result += "\nОписание: " + description; }
 
         return result + "\nСтатус:" + subtaskStatus;
     }
@@ -48,7 +48,7 @@ public class Subtask {
     }
 
     public void setSubtaskStatus(Statuses status) {
-        if(status != Statuses.DONE && status != Statuses.IN_PROGRESS){
+        if(status != Statuses.DONE && status != Statuses.IN_PROGRESS && status != Statuses.NEW){
             System.out.println("Такого статуса нет");
         } else {
             this.subtaskStatus = status;

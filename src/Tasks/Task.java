@@ -25,7 +25,7 @@ public class Task {
         else { result += "\n" + name; }
 
         if (description == null) { result += ""; }
-        else { result += "\n" + description; }
+        else { result += "\nОписание: " + description; }
 
         return result + "\nСтатус: " + status;
     }
@@ -44,7 +44,7 @@ public class Task {
     }
 
     public void setStatus(Statuses status) {
-        if (status != Statuses.DONE && status != Statuses.IN_PROGRESS) {
+        if (status != Statuses.DONE && status != Statuses.IN_PROGRESS && status != Statuses.NEW) {
             System.out.println("Такого статуса нет");
         } else {
             this.status = status;
