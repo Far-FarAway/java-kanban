@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import Tasks.*;
 
 public class Manager {
-    static protected int identifier = 0;
+    protected int identifier = 1;
     public Map<Integer, Object> tasksMap = new HashMap<>();
 
     public void addTask(Object o) {
         if(!tasksMap.containsValue(o)) {
-            identifier++;
+            while(tasksMap.containsKey(identifier)) {
+                identifier++;
+            }
             tasksMap.put(identifier, o);
         }
     }
@@ -37,8 +39,11 @@ public class Manager {
         }
     }
 
-    public void deleteTask(int index){
-        tasksMap.remove(index);
+    public void deleteTask(int... indexes){
+        for(int i : indexes) {
+            identifier--;
+            tasksMap.remove(i);
+        }
     }
 
     public Object getTask(int index){
@@ -50,7 +55,7 @@ public class Manager {
         return list;
     }
 
-    public void update(int index, Object o){
+    public void updateTask(int index, Object o){
         deleteTask(index);
         tasksMap.put(index, o);
     }
@@ -62,5 +67,17 @@ public class Manager {
             result += "\t\t" + i + "\t\t\n" + tasksMap.get(i);
         }
         return result;
+    }
+
+    public void updateStatus(Object o){
+        if(o.getClass() == Task.class && ((Task)o).getStatus() == Statuses.NEW){
+            ((Task)o).setStatus(Statuses.DONE);
+        } else if(o.getClass() == Subtask.class && ((Subtask)o).getSubtaskStatus() == Statuses.NEW) {
+            ((Subtask)o).setSubtaskStatus(Statuses.DONE);
+        } else if(o.getClass() == Epic.class) {
+            ((Epic)o).checkStatus();
+        } else {
+            System.out.println("Такого статуса нет");
+        }
     }
 }
