@@ -1,15 +1,12 @@
 package Tasks;
 
 import java.util.Objects;
-import java.util.Random;
-
 
 public class Task {
     protected String name;
     protected String description;
     protected final int id;
     protected Statuses status;
-    protected Random random = new Random();
 
     public Task(String name, String description) {
         this.name = name;
