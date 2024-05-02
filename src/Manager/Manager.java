@@ -20,6 +20,7 @@ public class Manager {
         }
     }
 
+
     public void addTask(Epic epic, Subtask... subtasks) {
         for(Subtask subtask : subtasks){
             if (!epic.getSubtasksList().contains(subtask)) {
@@ -33,15 +34,16 @@ public class Manager {
         return tasksList;
     }
 
-    public void deleteAllTask(){
-        for (int i : tasksMap.keySet()) {
-            tasksMap.remove(i);
-        }
+    public void deleteAllTasks(){
+        tasksMap.clear();
+        System.out.println("Список задач очищен");
     }
 
     public void deleteTask(int... indexes){
         for(int i : indexes) {
-            identifier--;
+            if(identifier > 1) {
+                identifier--;
+            }
             tasksMap.remove(i);
         }
     }
@@ -58,6 +60,24 @@ public class Manager {
     public void updateTask(int index, Object o){
         deleteTask(index);
         tasksMap.put(index, o);
+    }
+
+    public Object updateInformation(Object o, String nameOrDescription, String info){
+        if(o.getClass() == Task.class){
+            if(nameOrDescription.equals("name")) {
+                ((Task) o).setName(info);
+            } else if(nameOrDescription.equals("description")) {
+                ((Task) o).setDescription(info);
+            }
+        } else if(o.getClass() == Subtask.class){
+            if(nameOrDescription.equals("name")) {
+                ((Subtask) o).setSubtaskName(info);
+            } else if(nameOrDescription.equals("description")) {
+                ((Subtask) o).setSubtaskDescription(info);
+            }
+        }
+
+        return o;
     }
 
     @Override
