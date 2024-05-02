@@ -50,4 +50,8 @@ public class Task {
             this.status = status;
         }
     }
+
+    public String getName(){
+        return name;
+    }
 }
