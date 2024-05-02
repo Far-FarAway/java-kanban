@@ -29,7 +29,6 @@ public class Epic extends Task {
         if (description == null) { result += ""; }
         else { result += "\nОписание: " + description; }
 
-        checkStatus();
         result += "\nСтатус: " + status + "\nПодзадачи: \n";
 
         if(subtasksList == null){ result += "\nПодзадач пока нет\n"; }
