@@ -24,7 +24,7 @@ public class Task {
         if (description == null) { result += ""; }
         else { result += "\nОписание: " + description; }
 
-        return result + "\nСтатус: " + status;
+        return result + "\nСтатус: " + status + "\n";
     }
 
     @Override

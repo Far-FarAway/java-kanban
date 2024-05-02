@@ -32,7 +32,7 @@ public class Epic extends Task {
         checkStatus();
         result += "\nСтатус: " + status + "\nПодзадачи: \n";
 
-        if(subtasksList == null){ result += "\nПодзадач пока нет"; }
+        if(subtasksList == null){ result += "\nПодзадач пока нет\n"; }
         else {
             for(int i = 0; i < subtasksList.size(); i++){
                 result += (i+1)+". " + subtasksList.get(i) + "\n";
