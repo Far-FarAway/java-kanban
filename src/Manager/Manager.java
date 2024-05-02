@@ -12,12 +12,18 @@ public class Manager {
     public Map<Integer, Object> tasksMap = new HashMap<>();
 
     public void addTask(Object o) {
-        identifier++;
-        tasksMap.put(identifier, o);
+        if(!tasksMap.containsValue(o)) {
+            identifier++;
+            tasksMap.put(identifier, o);
+        }
     }
 
-    public void addTask(Epic epic, Subtask subtask) {
-        epic.addSubtask(subtask);
+    public void addTask(Epic epic, Subtask... subtasks) {
+        for(Subtask subtask : subtasks){
+            if (!epic.getSubtasksList().contains(subtask)) {
+                epic.addSubtask(subtask);
+            }
+        }
     }
 
     public List getTasksList() {
