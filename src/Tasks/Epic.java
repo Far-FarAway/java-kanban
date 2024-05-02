@@ -11,17 +11,13 @@ public class Epic extends Task {
         super(name, description);
     }
 
+    public List<Subtask> getSubtasksList(){
+        return subtasksList;
+    }
+
 
     public void addSubtask(Subtask subtask) {
         subtasksList.add(subtask);
-    }
-
-    public String printSubtasks() {
-        String result = "";
-        for(int i = 0; i < subtasksList.size(); i++){
-            result += (i+1)+". " + subtasksList.get(i) + "\n";
-        }
-        return result;
     }
 
     @Override
@@ -37,7 +33,11 @@ public class Epic extends Task {
         result += "\nСтатус: " + status + "\nПодзадачи: \n";
 
         if(subtasksList == null){ result += "\nПодзадач пока нет"; }
-        else { result += printSubtasks(); }
+        else {
+            for(int i = 0; i < subtasksList.size(); i++){
+                result += (i+1)+". " + subtasksList.get(i) + "\n";
+            }
+        }
 
         return result;
     }
