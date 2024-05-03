@@ -26,7 +26,7 @@ public class Main {
         System.out.println(manager);
 
         System.out.println("\nУдаление задач");
-        manager.deleteTask(2,3);
+        manager.deleteByIds(2,3);
 
         System.out.println("Обновление статусов");
         manager.updateStatus(task1);
