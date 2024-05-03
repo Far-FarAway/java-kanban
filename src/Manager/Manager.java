@@ -29,8 +29,8 @@ public class Manager {
         }
     }
 
-    public List getTasksList() {
-        List<Object> tasksList = new ArrayList<>(tasksMap.values());
+    public ArrayList<Object> getTasksList() {
+        ArrayList<Object> tasksList = new ArrayList<>(tasksMap.values());
         return tasksList;
     }
 
