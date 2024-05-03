@@ -26,7 +26,7 @@ public class Main {
         System.out.println(manager);
 
         System.out.println("\nУдаление задач");
-        manager.deleteTask(1,2,4);
+        manager.deleteTask(2,3);
 
         System.out.println("Обновление статусов");
         manager.updateStatus(task1);
@@ -49,7 +49,7 @@ public class Main {
         System.out.println("Получение подзадач эпика\n" + manager.getSubtasks(epic2));
 
         System.out.println("Обновление задачи\n");
-        manager.updateTask(1, manager.updateInformation(manager.getTask(1), "description",
+        manager.updateTask(3, manager.updateInformation(manager.getTask(1), "description",
                 "Он прячется в шкафу"));
 
         System.out.println(manager);
