@@ -39,7 +39,7 @@ public class Manager {
         System.out.println("Список задач очищен");
     }
 
-    public void deleteTask(int... indexes){
+    public void deleteByIds(int... indexes){
         for(int i : indexes) {
             if(identifier > 1) {
                 identifier--;
@@ -58,7 +58,7 @@ public class Manager {
     }
 
     public void updateTask(int index, Task task){
-        deleteTask(index);
+        deleteByIds(index);
         tasksMap.put(index, task);
     }
 
