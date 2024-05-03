@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 
-import Tasks.*;
+import Task.*;
 
 public class Manager {
     protected int identifier = 1;

@@ -1,8 +1,5 @@
 import Manager.*;
-import Tasks.*;
-
-import java.util.Map;
-import java.util.HashMap;
+import Task.*;
 
 public class Main {
     public static void main(String[] args) {
