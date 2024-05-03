@@ -2,12 +2,13 @@ package Task;
 
 import java.util.Objects;
 
-public class Subtask {
+public class Subtask extends Task {
     protected String subtaskName;
     protected Status subtaskStatus;
     protected String subtaskDescription;
 
     public Subtask(String subtaskName, String description) {
+        super("","");
         this.subtaskDescription = description;
         this.subtaskName = subtaskName;
         subtaskStatus = Status.NEW;
