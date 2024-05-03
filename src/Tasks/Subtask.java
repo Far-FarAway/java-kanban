@@ -4,13 +4,13 @@ import java.util.Objects;
 
 public class Subtask {
     protected String subtaskName;
-    protected Statuses subtaskStatus;
+    protected Status subtaskStatus;
     protected String subtaskDescription;
 
     public Subtask(String subtaskName, String description) {
         this.subtaskDescription = description;
         this.subtaskName = subtaskName;
-        subtaskStatus = Statuses.NEW;
+        subtaskStatus = Status.NEW;
     }
 
 
@@ -39,12 +39,12 @@ public class Subtask {
         return Objects.equals(sub.subtaskName, this.subtaskName) && Objects.equals(sub.subtaskStatus, this.subtaskStatus);
     }
 
-    public Statuses getSubtaskStatus() {
+    public Status getSubtaskStatus() {
         return subtaskStatus;
     }
 
-    public void setSubtaskStatus(Statuses status) {
-        if(status != Statuses.DONE && status != Statuses.IN_PROGRESS && status != Statuses.NEW){
+    public void setSubtaskStatus(Status status) {
+        if(status != Status.DONE && status != Status.IN_PROGRESS && status != Status.NEW){
             System.out.println("Такого статуса нет");
         } else {
             this.subtaskStatus = status;

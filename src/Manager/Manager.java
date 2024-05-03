@@ -90,10 +90,10 @@ public class Manager {
     }
 
     public void updateStatus(Object o){
-        if(o.getClass() == Task.class && ((Task)o).getStatus() == Statuses.NEW){
-            ((Task)o).setStatus(Statuses.DONE);
-        } else if(o.getClass() == Subtask.class && ((Subtask)o).getSubtaskStatus() == Statuses.NEW) {
-            ((Subtask)o).setSubtaskStatus(Statuses.DONE);
+        if(o.getClass() == Task.class && ((Task)o).getStatus() == Status.NEW){
+            ((Task)o).setStatus(Status.DONE);
+        } else if(o.getClass() == Subtask.class && ((Subtask)o).getSubtaskStatus() == Status.NEW) {
+            ((Subtask)o).setSubtaskStatus(Status.DONE);
         } else if(o.getClass() == Epic.class) {
             ((Epic)o).checkStatus();
         } else {

@@ -6,12 +6,12 @@ public class Task {
     protected String name;
     protected String description;
     protected final int id;
-    protected Statuses status;
+    protected Status status;
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.status = Statuses.NEW;
+        this.status = Status.NEW;
         this.id = hashCode();
     }
 
@@ -41,15 +41,15 @@ public class Task {
                 && status == task.status;
     }
 
-    public void setStatus(Statuses status) {
-        if (status != Statuses.DONE && status != Statuses.IN_PROGRESS && status != Statuses.NEW) {
+    public void setStatus(Status status) {
+        if (status != Status.DONE && status != Status.IN_PROGRESS && status != Status.NEW) {
             System.out.println("Такого статуса нет");
         } else {
             this.status = status;
         }
     }
 
-    public Statuses getStatus() {
+    public Status getStatus() {
         return status;
     }
 

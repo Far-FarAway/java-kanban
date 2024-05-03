@@ -52,19 +52,18 @@ public class Epic extends Task {
     public void checkStatus() {
         int count = 0;
         for (Subtask subtask : subtasksList) {
-            if (subtask.getSubtaskStatus() == Statuses.DONE) {
+            if (subtask.getSubtaskStatus() == Status.DONE) {
                 count++;
             }
         }
 
         if (count == subtasksList.size()) {
-            setStatus(Statuses.DONE);
+            setStatus(Status.DONE);
         } else if(count > 0) {
-            setStatus(Statuses.IN_PROGRESS);
+            setStatus(Status.IN_PROGRESS);
         } else {
-            setStatus(Statuses.NEW);
+            setStatus(Status.NEW);
         }
 
     }
 }
-
