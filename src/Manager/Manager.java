@@ -9,9 +9,9 @@ import Task.*;
 
 public class Manager {
     protected int identifier = 1;
-    public Map<Integer, Object> tasksMap = new HashMap<>();
+    public Map<Integer, Task> tasksMap = new HashMap<>();
 
-    public void addTask(Object o) {
+    public void addTask(Task o) {
         if(!tasksMap.containsValue(o)) {
             while(tasksMap.containsKey(identifier)) {
                 identifier++;
@@ -48,7 +48,7 @@ public class Manager {
         }
     }
 
-    public Object getTask(int index){
+    public Task getTask(int index){
         return tasksMap.get(index);
     }
 
@@ -57,27 +57,29 @@ public class Manager {
         return list;
     }
 
-    public void updateTask(int index, Object o){
+    public void updateTask(int index, Task task){
         deleteTask(index);
-        tasksMap.put(index, o);
+        tasksMap.put(index, task);
     }
 
-    public Object updateInformation(Object o, String nameOrDescription, String info){
-        if(o.getClass() == Task.class){
+    public Task updateInformation(Task task, String nameOrDescription, String info){
+
+        if(task.getClass() == Task.class){
             if(nameOrDescription.equals("name")) {
-                ((Task) o).setName(info);
+                task.setName(info);
             } else if(nameOrDescription.equals("description")) {
-                ((Task) o).setDescription(info);
+                task.setDescription(info);
             }
-        } else if(o.getClass() == Subtask.class){
+        } else if(task.getClass() == Subtask.class){
             if(nameOrDescription.equals("name")) {
-                ((Subtask) o).setSubtaskName(info);
+                ((Subtask)task).setSubtaskName(info);
+                System.out.println("fadfadfadsafdsadasd");
             } else if(nameOrDescription.equals("description")) {
-                ((Subtask) o).setSubtaskDescription(info);
+                ((Subtask)task).setSubtaskDescription(info);
             }
         }
 
-        return o;
+        return task;
     }
 
     @Override
@@ -89,13 +91,13 @@ public class Manager {
         return result;
     }
 
-    public void updateStatus(Object o){
-        if(o.getClass() == Task.class && ((Task)o).getStatus() == Status.NEW){
-            ((Task)o).setStatus(Status.DONE);
-        } else if(o.getClass() == Subtask.class && ((Subtask)o).getSubtaskStatus() == Status.NEW) {
-            ((Subtask)o).setSubtaskStatus(Status.DONE);
-        } else if(o.getClass() == Epic.class) {
-            ((Epic)o).checkStatus();
+    public void updateStatus(Task task){
+        if(task.getClass() == Task.class && ((Task)task).getStatus() == Status.NEW){
+            task.setStatus(Status.DONE);
+        } else if(task.getClass() == Subtask.class && ((Subtask)task).getSubtaskStatus() == Status.NEW) {
+            ((Subtask)task).setSubtaskStatus(Status.DONE);
+        } else if(task.getClass() == Epic.class) {
+            ((Epic)task).checkStatus();
         } else {
             System.out.println("Такого статуса нет");
         }
