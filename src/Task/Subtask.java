@@ -3,33 +3,33 @@ package Task;
 import java.util.Objects;
 
 public class Subtask extends Task {
-    protected String subtaskName;
-    protected Status subtaskStatus;
-    protected String subtaskDescription;
+    protected String name;
+    protected Status status;
+    protected String description;
 
-    public Subtask(String subtaskName, String description) {
+    public Subtask(String name, String description) {
         super("","");
-        this.subtaskDescription = description;
-        this.subtaskName = subtaskName;
-        subtaskStatus = Status.NEW;
+        this.description = description;
+        this.name = name;
+        status = Status.NEW;
     }
 
 
     @Override
     public String toString() {
         String result = "";
-        if(subtaskName == null){ result += ""; }
-        else { result += subtaskName; }
+        if(name == null){ result += ""; }
+        else { result += name; }
 
-        if (subtaskDescription == null) { result += ""; }
-        else { result += "\nОписание: " + subtaskDescription; }
+        if (description == null) { result += ""; }
+        else { result += "\nОписание: " + description; }
 
-        return result + "\nСтатус:" + subtaskStatus;
+        return result + "\nСтатус:" + status;
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(subtaskName, subtaskDescription, subtaskStatus);
+        return Objects.hash(name, description, status);
     }
 
     @Override
@@ -37,26 +37,26 @@ public class Subtask extends Task {
         if(o == this) return true;
         if(o == null || o.getClass() != this.getClass()) return false;
         Subtask sub = (Subtask)o;
-        return Objects.equals(sub.subtaskName, this.subtaskName) && Objects.equals(sub.subtaskStatus, this.subtaskStatus);
+        return Objects.equals(sub.name, this.name) && Objects.equals(sub.status, this.status);
     }
 
     public Status getSubtaskStatus() {
-        return subtaskStatus;
+        return status;
     }
 
     public void setSubtaskStatus(Status status) {
         if(status != Status.DONE && status != Status.IN_PROGRESS && status != Status.NEW){
             System.out.println("Такого статуса нет");
         } else {
-            this.subtaskStatus = status;
+            this.status = status;
         }
     }
 
-    public void setSubtaskName(String subtaskName) {
-        this.subtaskName = subtaskName;
+    public void setSubtaskName(String name) {
+        this.name = name;
     }
 
-    public void setSubtaskDescription(String subtaskDescription) {
-        this.subtaskDescription = subtaskDescription;
+    public void setSubtaskDescription(String description) {
+        this.description = description;
     }
 }
