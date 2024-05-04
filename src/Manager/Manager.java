@@ -29,9 +29,8 @@ public class Manager {
         }
     }
 
-    public ArrayList<Object> getTasksList() {
-        ArrayList<Object> tasksList = new ArrayList<>(tasksMap.values());
-        return tasksList;
+    public List<Task> getTasksList() {
+        return new ArrayList<>(tasksMap.values());
     }
 
     public void deleteAllTasks(){
@@ -53,8 +52,7 @@ public class Manager {
     }
 
     public List<Subtask> getSubtasks(Epic epic){
-        List<Subtask> list = new ArrayList<>(epic.getSubtasksList());
-        return list;
+        return new ArrayList<>(epic.getSubtasksList());
     }
 
     public void updateTask(int index, Task task){
@@ -73,7 +71,7 @@ public class Manager {
         } else if(task.getClass() == Subtask.class){
             if(nameOrDescription.equals("name")) {
                 ((Subtask)task).setSubtaskName(info);
-                System.out.println("fadfadfadsafdsadasd");
+                //Май бэд)
             } else if(nameOrDescription.equals("description")) {
                 ((Subtask)task).setSubtaskDescription(info);
             }
@@ -92,7 +90,7 @@ public class Manager {
     }
 
     public void updateStatus(Task task){
-        if(task.getClass() == Task.class && ((Task)task).getStatus() == Status.NEW){
+        if(task.getClass() == Task.class && task.getStatus() == Status.NEW){
             task.setStatus(Status.DONE);
         } else if(task.getClass() == Subtask.class && ((Subtask)task).getSubtaskStatus() == Status.NEW) {
             ((Subtask)task).setSubtaskStatus(Status.DONE);
