@@ -18,6 +18,8 @@ public interface TaskManager {
 
     Task getTask(int index);
 
+    Subtask getSubtask(Epic epic, int index);
+
     List<Subtask> getSubtasks(Epic epic);
 
     void updateTask(int index, Task task);

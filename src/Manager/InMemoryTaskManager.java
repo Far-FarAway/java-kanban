@@ -59,6 +59,10 @@ public class InMemoryTaskManager implements TaskManager {
         return tasksMap.get(index);
     }
 
+    public Subtask getSubtask(Epic epic, int index){
+        return epic.getSubtasksList().get(index);
+    }
+
     @Override
     public ArrayList<Subtask> getSubtasks(Epic epic){
         return new ArrayList<>(epic.getSubtasksList());
