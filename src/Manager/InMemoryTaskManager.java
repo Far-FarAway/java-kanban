@@ -35,7 +35,12 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public ArrayList<Task> getTasksList() {
-        return new ArrayList<>(tasksMap.values());
+        ArrayList<Task> tasksList = new ArrayList<>(tasksMap.values());
+        for(Task task : tasksList){
+            history.put(task.getId(), task);
+        }
+
+        return tasksList;
     }
 
     @Override
