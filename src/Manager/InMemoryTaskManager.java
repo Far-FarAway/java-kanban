@@ -7,10 +7,11 @@ import java.util.ArrayList;
 
 import Task.*;
 
-public class Manager {
+public class InMemoryTaskManager implements TaskManager {
     protected int identifier = 1;
     public Map<Integer, Task> tasksMap = new HashMap<>();
 
+    @Override
     public void addTask(Task o) {
         if(!tasksMap.containsValue(o)) {
             while(tasksMap.containsKey(identifier)) {
@@ -21,6 +22,7 @@ public class Manager {
     }
 
 
+    @Override
     public void addTask(Epic epic, Subtask... subtasks) {
         for(Subtask subtask : subtasks){
             if (!epic.getSubtasksList().contains(subtask)) {
@@ -29,15 +31,18 @@ public class Manager {
         }
     }
 
+    @Override
     public List<Task> getTasksList() {
         return new ArrayList<>(tasksMap.values());
     }
 
+    @Override
     public void deleteAllTasks(){
         tasksMap.clear();
         System.out.println("Список задач очищен");
     }
 
+    @Override
     public void deleteByIds(int... indexes){
         for(int i : indexes) {
             if(identifier > 1) {
@@ -47,19 +52,23 @@ public class Manager {
         }
     }
 
+    @Override
     public Task getTask(int index){
         return tasksMap.get(index);
     }
 
+    @Override
     public List<Subtask> getSubtasks(Epic epic){
         return new ArrayList<>(epic.getSubtasksList());
     }
 
+    @Override
     public void updateTask(int index, Task task){
         deleteByIds(index);
         tasksMap.put(index, task);
     }
 
+    @Override
     public Task updateInformation(Task task, String nameOrDescription, String info){
 
         if(task.getClass() == Task.class){
@@ -89,6 +98,7 @@ public class Manager {
         return result;
     }
 
+    @Override
     public void updateStatus(Task task){
         if(task.getClass() == Task.class && task.getStatus() == Status.NEW){
             task.setStatus(Status.DONE);

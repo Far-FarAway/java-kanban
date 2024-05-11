@@ -3,7 +3,7 @@ import Task.*;
 
 public class Main {
     public static void main(String[] args) {
-        Manager manager = new Manager();
+        InMemoryTaskManager manager = new InMemoryTaskManager();
 
         Task task1 = new Task("Тренировка", "Вот так вот");
         Task task2 = new Task("Вымыть кота", "Найти и запихать в ванну");
