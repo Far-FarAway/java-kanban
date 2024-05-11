@@ -11,8 +11,8 @@ public class Epic extends Task {
         super(name, description);
     }
 
-    public List<Subtask> getSubtasksList(){
-        return subtasksList;
+    public ArrayList<Subtask> getSubtasksList(){
+        return new ArrayList(subtasksList);
     }
 
 
