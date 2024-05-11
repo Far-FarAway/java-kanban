@@ -22,6 +22,8 @@ public interface TaskManager {
 
     List<Subtask> getSubtasks(Epic epic);
 
+    int getId();
+
     void updateTask(int index, Task task);
 
     Task updateInformation(Task task, String nameOrDescription, String info);
