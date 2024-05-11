@@ -3,6 +3,7 @@ package Manager;
 import Task.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TaskManager {
     void addTask(Task o);
@@ -27,4 +28,6 @@ public interface TaskManager {
     String toString();
 
     void updateStatus(Task task);
+
+    Map<Integer, Task> getHistory();
 }
