@@ -56,16 +56,34 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task getTask(int index){
-        return tasksMap.get(index);
+        if(tasksMap.containsKey(index)) {
+            history.put(index, tasksMap.get(index));
+            return tasksMap.get(index);
+        } else {
+            System.out.println("Такой задачи не существует");
+            return null;
+        }
     }
 
     public Subtask getSubtask(Epic epic, int index){
-        return epic.getSubtasksList().get(index);
+        if(tasksMap.containsKey(index)) {
+            Subtask subtask = epic.getSubtasksList().get(index);
+            history.put(index, subtask);
+            return subtask;
+        } else {
+            System.out.println("Такой задачи не существует");
+            return null;
+        }
     }
 
     @Override
     public ArrayList<Subtask> getSubtasks(Epic epic){
-        return new ArrayList<>(epic.getSubtasksList());
+        ArrayList<Subtask> subtasksList = epic.getSubtasksList();
+        for(Subtask subtask : subtasksList){
+            history.put(subtask.getId(), subtask);
+        }
+
+        return subtasksList;
     }
 
     @Override
