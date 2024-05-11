@@ -2,14 +2,16 @@ package Manager;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 import java.util.ArrayList;
 
 import Task.*;
 
 public class InMemoryTaskManager implements TaskManager {
     protected int identifier = 1;
-    public Map<Integer, Task> tasksMap = new HashMap<>();
+    protected Map<Integer, Task> tasksMap = new HashMap<>();
+    protected Map<Integer, Task> history = new HashMap<>();
+
+
 
     @Override
     public void addTask(Task o) {
@@ -32,7 +34,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<Task> getTasksList() {
+    public ArrayList<Task> getTasksList() {
         return new ArrayList<>(tasksMap.values());
     }
 
@@ -58,7 +60,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public List<Subtask> getSubtasks(Epic epic){
+    public ArrayList<Subtask> getSubtasks(Epic epic){
         return new ArrayList<>(epic.getSubtasksList());
     }
 
@@ -109,5 +111,11 @@ public class InMemoryTaskManager implements TaskManager {
         } else {
             System.out.println("Такого статуса нет");
         }
+    }
+
+    @Override
+    public HashMap<Integer, Task> getHistory(){
+        history.put(3, new Task("loli", "it's cool"));
+        return new HashMap<>(history);
     }
 }
