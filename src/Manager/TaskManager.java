@@ -31,5 +31,5 @@ public interface TaskManager {
 
     void updateStatus(Task task);
 
-    Map<Integer, Task> getHistory();
+    String getHistory();
 }
