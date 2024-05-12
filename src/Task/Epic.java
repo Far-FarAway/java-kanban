@@ -22,7 +22,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        String result = "ID: " + id;
+        String result = "\n\nID: " + id;
         if (name == null){ result += ""; }
         else { result += "\n" + name; }
 
@@ -33,8 +33,8 @@ public class Epic extends Task {
 
         if(subtasksList == null){ result += "\nПодзадач пока нет\n"; }
         else {
-            for(int i = 0; i < subtasksList.size(); i++){
-                result += (i+1)+". " + subtasksList.get(i) + "\n";
+            for(Subtask subtask : subtasksList){
+                result += subtask.getSubtaskId()+". " + subtasksList + "\n";
             }
         }
 
