@@ -5,19 +5,18 @@ import java.util.Objects;
 public class Task {
     protected String name;
     protected String description;
-    protected final int id;
+    protected int id;
     protected Status status;
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
         this.status = Status.NEW;
-        this.id = hashCode();
     }
 
     @Override
     public String toString() {
-        String result = "ID: " + id;
+        String result = "\n\nID: " + id;
         if (name == null){ result += ""; }
         else { result += "\n" + name; }
 
@@ -60,6 +59,8 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setId(int id){ this.id = id;}
 
     public int getId(){ return id; }
 }
