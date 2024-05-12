@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import Task.*;
 
 public class InMemoryTaskManager implements TaskManager {
-    protected int identifier = 1;
+    protected int id = 1;
     protected Map<Integer, Task> tasksMap = new HashMap<>();
     protected Map<Integer, Task> history = new HashMap<>();
 
@@ -16,10 +16,11 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Task o) {
         if(!tasksMap.containsValue(o)) {
-            while(tasksMap.containsKey(identifier)) {
-                identifier++;
+            while(tasksMap.containsKey(id)) {
+                id++;
             }
-            tasksMap.put(identifier, o);
+            o.setId(id);
+            tasksMap.put(id, o);
         }
     }
 
@@ -28,6 +29,8 @@ public class InMemoryTaskManager implements TaskManager {
     public void addTask(Epic epic, Subtask... subtasks) {
         for(Subtask subtask : subtasks){
             if (!epic.getSubtasksList().contains(subtask)) {
+                id++;
+                subtask.setSubtaskId(id);
                 epic.addSubtask(subtask);
             }
         }
@@ -52,8 +55,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteByIds(int... indexes){
         for(int i : indexes) {
-            if(identifier > 1) {
-                identifier--;
+            if(id > 1) {
+                id--;
             }
             tasksMap.remove(i);
         }
@@ -121,9 +124,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public String toString(){
-        String result = "";
+        String result = "\n";
         for(int i : tasksMap.keySet()){
-            result += "\t\t" + i + "\t\t\n" + tasksMap.get(i);
+            result += "\n" + tasksMap.get(i);
         }
         return result;
     }
@@ -142,7 +145,25 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public HashMap<Integer, Task> getHistory(){
-        return new HashMap<>(history);
+    public String getHistory(){
+        checkHistory();
+
+        String result = "История просмотров:\n";
+        for(Task task : history.values()){
+            result += task;
+        }
+
+        return result;
+    }
+
+    private void checkHistory(){
+        if (history.size() > 10){
+            for(int id : history.keySet()){
+                history.remove(id);
+                if(history.size() < 10){
+                    break;
+                }
+            }
+        }
     }
 }
