@@ -6,6 +6,7 @@ public class Subtask extends Task {
     protected String name;
     protected Status status;
     protected String description;
+    protected int subtaskId;
 
     public Subtask(String name, String description) {
         super("","");
@@ -59,4 +60,8 @@ public class Subtask extends Task {
     public void setSubtaskDescription(String description) {
         this.description = description;
     }
+
+    public void setSubtaskId(int id){ this.subtaskId = id;}
+
+    public int getSubtaskId(){ return subtaskId;}
 }
