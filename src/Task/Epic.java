@@ -1,22 +1,25 @@
 package Task;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Epic extends Task {
-    protected List<Subtask> subtasksList = new ArrayList<>();
+    protected Map<Integer, Subtask> subtasksList = new HashMap<>();
 
     public Epic(String name, String description) {
         super(name, description);
     }
 
-    public ArrayList<Subtask> getSubtasksList(){return new ArrayList<>(subtasksList);}
+    public HashMap<Integer, Subtask> getSubtasksList(){return new HashMap<>(subtasksList);}
 
 
     public void addSubtask(Subtask subtask) {
-        subtask.setSubtaskId(id);
-        subtasksList.add(subtask);
+        if (!subtasksList.containsValue(subtask)) {
+            id++;
+            subtask.setSubtaskId(id);
+            subtasksList.put(id, subtask);
+        }
     }
 
     @Override
@@ -32,7 +35,7 @@ public class Epic extends Task {
 
         if(subtasksList == null){ result += "\nПодзадач пока нет\n"; }
         else {
-            for(Subtask subtask : subtasksList){
+            for(Subtask subtask : subtasksList.values()){
                 result += subtask.getSubtaskId()+". " + subtasksList + "\n";
             }
         }
@@ -50,7 +53,7 @@ public class Epic extends Task {
 
     public void checkStatus() {
         int count = 0;
-        for (Subtask subtask : subtasksList) {
+        for (Subtask subtask : subtasksList.values()) {
             if (subtask.getSubtaskStatus() == Status.DONE) {
                 count++;
             }
@@ -58,11 +61,4 @@ public class Epic extends Task {
 
         if (count == subtasksList.size()) {
             setStatus(Status.DONE);
-        } else if(count > 0) {
-            setStatus(Status.IN_PROGRESS);
-        } else {
-            setStatus(Status.NEW);
-        }
-
-    }
-}
+    
