@@ -20,7 +20,7 @@ public interface TaskManager {
 
     Subtask getSubtask(Epic epic, int index);
 
-    List<Subtask> getSubtasks(Epic epic);
+    Map<Integer, Subtask> getSubtasks(Epic epic);
 
     void updateTask(int index, Task task);
 

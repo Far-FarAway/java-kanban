@@ -28,7 +28,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Epic epic, Subtask... subtasks) {
         for(Subtask subtask : subtasks){
-            if (!epic.getSubtasksList().contains(subtask)) {
+            if (!epic.getSubtasksList().containsValue(subtask)) {
                 id++;
                 subtask.setSubtaskId(id);
                 epic.addSubtask(subtask);
@@ -75,7 +75,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Subtask getSubtask(Epic epic, int index){
-        if(tasksMap.containsKey(index)) {
+        if(epic.getSubtasksList().containsKey(index)) {
             Subtask subtask = epic.getSubtasksList().get(index);
             historyManager.add(subtask);
             return subtask;
@@ -86,9 +86,9 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public ArrayList<Subtask> getSubtasks(Epic epic){
-        ArrayList<Subtask> subtasksList = epic.getSubtasksList();
-        for(Subtask subtask : subtasksList){
+    public HashMap<Integer, Subtask> getSubtasks(Epic epic){
+        HashMap<Integer, Subtask> subtasksList = epic.getSubtasksList();
+        for(Subtask subtask : subtasksList.values()){
             historyManager.add(subtask);
         }
 
