@@ -34,6 +34,8 @@ public class Epic extends Task {
         if (description == null) { result += ""; }
         else { result += "\nОписание: " + description; }
 
+        result += "\nСтатус: " + status;
+
         return result;
     }
 

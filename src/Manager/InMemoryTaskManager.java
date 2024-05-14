@@ -146,6 +146,8 @@ public class InMemoryTaskManager implements TaskManager {
         for(Task task : tasksMap.values()){
             result += "\n" + task;
             if(task instanceof Epic){
+                result += "\nПодзадачи: \n";
+
                 if(((Epic)task).getSubtasksMap().isEmpty()){ result += "\nПодзадач пока нет\n"; }
                 else {
                     for(Subtask subtask : ((Epic)task).getSubtasksMap().values()){
