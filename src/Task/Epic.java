@@ -36,7 +36,7 @@ public class Epic extends Task {
         if(subtasksList == null){ result += "\nПодзадач пока нет\n"; }
         else {
             for(Subtask subtask : subtasksList.values()){
-                result += subtask.getSubtaskId()+". " + subtasksList + "\n";
+                result += subtasksList + "\n";
             }
         }
 
@@ -61,4 +61,11 @@ public class Epic extends Task {
 
         if (count == subtasksList.size()) {
             setStatus(Status.DONE);
-    
+        } else if(count > 0) {
+            setStatus(Status.IN_PROGRESS);
+        } else {
+            setStatus(Status.NEW);
+        }
+
+    }
+}
