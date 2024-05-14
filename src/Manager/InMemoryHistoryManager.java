@@ -34,12 +34,7 @@ public class InMemoryHistoryManager implements HistoryManager{
 
     private void checkHistory(){
         if (history.size() > 10){
-            for(Task task : history){
-                history.remove(task);
-                if(history.size() < 10){
-                    break;
-                }
-            }
+            history.remove(history.getFirst());
         }
     }
 }
