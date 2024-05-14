@@ -78,7 +78,6 @@ public class InMemoryTaskManager implements TaskManager {
         if(tasksMap.containsValue(epic)) {
             if (epic.getSubtasksMap().containsKey(index)) {
                 Subtask subtask = epic.getSubtasksMap().get(index);
-                historyManager.add(epic);
                 historyManager.add(subtask);
                 return subtask;
             } else {
@@ -94,7 +93,6 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public HashMap<Integer, Subtask> getSubtasks(Epic epic){
         if(tasksMap.containsValue(epic)) {
-            historyManager.add(epic);
             HashMap<Integer, Subtask> subtasksMap = epic.getSubtasksMap();
             for (Subtask subtask : subtasksMap.values()) {
                 historyManager.add(subtask);
