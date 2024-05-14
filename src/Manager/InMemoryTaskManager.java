@@ -79,12 +79,18 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Subtask getSubtask(Epic epic, int index){
-        if(epic.getSubtasksMap().containsKey(index)) {
-            Subtask subtask = epic.getSubtasksMap().get(index);
-            historyManager.add(subtask);
-            return subtask;
+        if(tasksMap.containsValue(epic)) {
+            if (epic.getSubtasksMap().containsKey(index)) {
+                Subtask subtask = epic.getSubtasksMap().get(index);
+                historyManager.add(epic);
+                historyManager.add(subtask);
+                return subtask;
+            } else {
+                System.out.println("Такой подзадачи не существует");
+                return null;
+            }
         } else {
-            System.out.println("Такой подзадачи не существует");
+            System.out.println("Такого эпика не существует");
             return null;
         }
     }
