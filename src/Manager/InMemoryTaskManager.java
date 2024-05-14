@@ -34,7 +34,9 @@ public class InMemoryTaskManager implements TaskManager {
 
         for(Subtask subtask : subtasks){
             if (!epic.getSubtasksMap().containsValue(subtask)) {
-                id++;
+                while(epic.getSubtasksMap().containsKey(id)) {
+                    id++;
+                }
                 subtask.setSubtaskId(id);
                 epic.addSubtask(subtask);
             }
@@ -138,8 +140,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public String toString(){
         String result = "\n";
-        for(int i : tasksMap.keySet()){
-            result += "\n" + tasksMap.get(i);
+        for(Task task : tasksMap.values()){
+            result += "\n" + task;
         }
         return result;
     }
