@@ -39,7 +39,7 @@ public class Epic extends Task {
         if(subtasksMap == null){ result += "\nПодзадач пока нет\n"; }
         else {
             for(Subtask subtask : subtasksMap.values()){
-                result += subtasksMap + "\n";
+                result += subtask + "\n";
             }
         }
 
