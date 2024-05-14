@@ -16,7 +16,7 @@ public class InMemoryHistoryManager implements HistoryManager{
 
     @Override
     public String toString(){
-        String result = "История просмотров:\n";
+        String result = "История просмотров:";
         if(!history.isEmpty()) {
             for (Task task : history) {
                 result += task;
