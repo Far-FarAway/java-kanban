@@ -1,7 +1,6 @@
 package Manager;
 
 import Task.*;
-import Manager.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 public class InMemoryTaskManagerTest {
-    HistoryManager historyManager;
     TaskManager manager;
 
     Task task1 = new Task("Тренировка", "Вот так вот");
@@ -25,7 +23,6 @@ public class InMemoryTaskManagerTest {
 
     @BeforeEach
     public void beforeEach(){
-        historyManager = Managers.getDefaultHistory();
         manager = Managers.getDefault();
     }
 
