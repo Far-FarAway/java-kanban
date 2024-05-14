@@ -34,10 +34,6 @@ public class InMemoryTaskManager implements TaskManager {
 
         for(Subtask subtask : subtasks){
             if (!epic.getSubtasksMap().containsValue(subtask)) {
-                while(epic.getSubtasksMap().containsKey(id)) {
-                    id++;
-                }
-                subtask.setSubtaskId(id);
                 epic.addSubtask(subtask);
             }
         }
@@ -149,6 +145,14 @@ public class InMemoryTaskManager implements TaskManager {
         String result = "\n";
         for(Task task : tasksMap.values()){
             result += "\n" + task;
+            if(task instanceof Epic){
+                if(((Epic)task).getSubtasksMap().isEmpty()){ result += "\nПодзадач пока нет\n"; }
+                else {
+                    for(Subtask subtask : ((Epic)task).getSubtasksMap().values()){
+                        result += subtask + "\n";
+                    }
+                }
+            }
         }
         return result;
     }
