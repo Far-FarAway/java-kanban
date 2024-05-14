@@ -18,9 +18,9 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        String result = "";
+        String result = "\nID: " + subtaskId;
         if(name == null){ result += ""; }
-        else { result += name; }
+        else { result += "\n" + name; }
 
         if (description == null) { result += ""; }
         else { result += "\nОписание: " + description; }
