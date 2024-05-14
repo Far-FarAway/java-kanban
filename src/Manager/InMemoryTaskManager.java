@@ -123,7 +123,6 @@ public class InMemoryTaskManager implements TaskManager {
         } else if(task.getClass() == Subtask.class){
             if(nameOrDescription.equals("name")) {
                 ((Subtask)task).setSubtaskName(info);
-                //Май бэд)
             } else if(nameOrDescription.equals("description")) {
                 ((Subtask)task).setSubtaskDescription(info);
             }
