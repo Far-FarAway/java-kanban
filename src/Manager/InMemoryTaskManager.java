@@ -100,13 +100,8 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void updateTask(int index, Task task){
         if(tasksMap.containsKey(index)){
-            if(task.getId() <= 0){
-                task.setId(index);
-
-            } else {
-                deleteByIds(task.getId());
-                task.setId(index);
-            }
+            deleteByIds(task.getId());
+            task.setId(index);
 
             deleteByIds(index);
             tasksMap.put(task.getId(), task);
