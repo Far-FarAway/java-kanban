@@ -27,6 +27,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addTask(Epic epic, Subtask... subtasks) {
+        if(!tasksMap.containsValue(epic)){
+            addTask(epic);
+        }
+
         for(Subtask subtask : subtasks){
             if (!epic.getSubtasksList().containsValue(subtask)) {
                 id++;
