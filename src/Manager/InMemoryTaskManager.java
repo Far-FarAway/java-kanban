@@ -16,6 +16,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Task o) {
         if(!tasksMap.containsValue(o)) {
+            id = 1;
             while(tasksMap.containsKey(id)) {
                 id++;
             }
@@ -59,9 +60,6 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void deleteByIds(int... indexes){
         for(int i : indexes) {
-            if(id > 1) {
-                id--;
-            }
             tasksMap.remove(i);
         }
     }
@@ -101,8 +99,21 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void updateTask(int index, Task task){
-        deleteByIds(index);
-        tasksMap.put(index, task);
+        if(tasksMap.containsKey(index)){
+            if(task.getId() <= 0){
+                task.setId(index);
+
+            } else {
+                deleteByIds(task.getId());
+                task.setId(index);
+            }
+
+            deleteByIds(index);
+            tasksMap.put(task.getId(), task);
+        } else {
+            System.out.println("Такого id не существует");
+        }
+
     }
 
     @Override
