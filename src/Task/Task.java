@@ -60,6 +60,14 @@ public class Task {
         this.description = description;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public void setId(int id){ this.id = id;}
 
     public int getId(){ return id; }
