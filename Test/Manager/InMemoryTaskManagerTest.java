@@ -26,6 +26,7 @@ public class InMemoryTaskManagerTest {
         assertEquals(task1, manager.getTask(task1.getId()));
     }
 
+    @Test
     public void shouldAddAndGiveEpicWithSubtask(){
         TaskManager manager = Managers.getDefault();
 
@@ -39,7 +40,7 @@ public class InMemoryTaskManagerTest {
 
         manager.addTask(epic1);
         epic1.addSubtask(epic1Subtask1);
-        
+
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
 
         assertEquals(epic1, manager.getTask(epic1.getId()));
@@ -50,6 +51,7 @@ public class InMemoryTaskManagerTest {
 
     }
 
+    @Test
     public void shouldAddAndGiveSubtask(){
         TaskManager manager = Managers.getDefault();
 
