@@ -82,7 +82,7 @@ public class InMemoryTaskManager implements TaskManager {
             historyManager.add(subtask);
             return subtask;
         } else {
-            System.out.println("Такой задачи не существует");
+            System.out.println("Такой подзадачи не существует");
             return null;
         }
     }
