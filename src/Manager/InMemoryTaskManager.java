@@ -93,11 +93,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public HashMap<Integer, Subtask> getSubtasks(Epic epic){
         if(tasksMap.containsValue(epic)) {
-            HashMap<Integer, Subtask> subtasksMap = epic.getSubtasksMap();
-            for (Subtask subtask : subtasksMap.values()) {
-                historyManager.add(subtask);
-            }
-            return subtasksMap;
+            return epic.getSubtasksMap();
         } else {
             System.out.println("Такого эпика не сущесвтует");
             return null;
