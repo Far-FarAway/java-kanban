@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskManagerTest {
@@ -108,4 +110,42 @@ public class InMemoryTaskManagerTest {
         assertNull(manager.getSubtask(epic1, -3));
         assertNull(manager.getSubtasks(epic1));
     }
+
+    @Test
+    public void shouldGiveTrueWithSimilarTaskId(){
+        int id = task1.getId();
+        assertEquals(id, task1.getId());
+    }
+
+    @Test
+    public void shouldGiveTrueWithSimilarSubtaskId(){
+        int id = epic1Subtask1.getId();
+        assertEquals(id, epic1Subtask1.getId());
+    }
+
+    @Test
+    public void shouldGiveReadyToWorkManagers(){
+        manager.addTask(task1);
+        manager.getTask(task1.getId());
+
+        HistoryManager historyManager = Managers.getDefaultHistory();
+
+        historyManager.add(task2);
+
+        assertEquals(task1, manager.getHistory().getFirst());
+        assertEquals(task2, historyManager.getHistory().getFirst());
+    }
+
+    @Test
+    public void shouldNotChangeInformationWhenAddNewTaskAndAddToHistory(){
+        String name = task1.getName();
+        String description = task1.getDescription();
+
+        manager.addTask(task1);
+        manager.getTask(task1.getId());
+
+        assertEquals(name, task1.getName());
+        assertEquals(description, task1.getDescription());
+    }
+
 }
