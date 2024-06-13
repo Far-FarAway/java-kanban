@@ -1,25 +1,29 @@
 package Manager;
 
 import Task.Task;
-
+import HandMadeLinkedList.HistoryLinkedList;
+import HandMadeLinkedList.Node;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
 
-public class InMemoryHistoryManager implements HistoryManager{
-
-    private ArrayList<Task> history = new ArrayList<>();
+public class InMemoryHistoryManager implements HistoryManager {
+    private HistoryLinkedList<Task> historyList = new HistoryLinkedList<>();
+    private Map<Integer, Node<Task>> history = new HashMap<>();
 
     @Override
-    public void add(Task task){
-        history.add(task);
-        checkHistory();
+    public void add(Task task) {
+        historyList.addFirst(task);
+        history.put(task.getId(), historyList.getFirst());
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         String result = "История просмотров:";
-        if(!history.isEmpty()) {
-            for (Task task : history) {
-                result += task;
+        if (!history.isEmpty()) {
+            for (Node<Task> node : history.values()) {
+                result += node.getData();
             }
         } else {
             result += "Пока пуста";
@@ -27,14 +31,20 @@ public class InMemoryHistoryManager implements HistoryManager{
 
         return result;
     }
+
     @Override
-    public ArrayList<Task> getHistory(){
-        return new ArrayList<>(history);
+    public List<Task> getHistory() {
+        List<Task> list = new ArrayList<>();
+
+        for (Node<Task> node : history.values()) {
+            list.add(node.getData());
+        }
+
+        return list;
     }
 
-    private void checkHistory(){
-        if (history.size() > 10){
-            history.removeFirst();
-        }
+    @Override
+    public void remove(int id){
+        historyList.delete(history.get(id));
     }
 }
