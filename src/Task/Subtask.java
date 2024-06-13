@@ -63,5 +63,5 @@ public class Subtask extends Task {
 
     public void setSubtaskId(int id){ this.subtaskId = id;}
 
-    public int getSubtaskId(){ return subtaskId;}
+    public int getId(){ return subtaskId;}
 }
