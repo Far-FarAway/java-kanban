@@ -42,8 +42,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         for (int i = 1; i < historyList.getSize(); i++) {
             if(next.getNext() != null) {
                 next = next.getNext();
+                list.add(next.getData());
             }
-            list.add(next.getData());
         }
 
         return list;
