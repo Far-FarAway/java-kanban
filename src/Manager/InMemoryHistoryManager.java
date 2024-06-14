@@ -1,6 +1,6 @@
 package Manager;
 
-import Task.Task;
+import task.Task;
 import OwnList.HistoryLinkedList;
 import OwnList.Node;
 

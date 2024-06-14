@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
 
-import Task.*;
+import task.*;
 
 public class InMemoryTaskManager implements TaskManager {
     protected int id = 0;

@@ -1,6 +1,6 @@
 package OwnList;
 
-import Task.Task;
+import task.Task;
 
 public class HistoryLinkedList<T extends Task> {
 

@@ -1,6 +1,6 @@
 package OwnList;
 
-import Task.Task;
+import task.Task;
 
 public class Node<E extends Task> {
     E data;

@@ -1,6 +1,6 @@
 package Manager;
 
-import Task.*;
+import task.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
