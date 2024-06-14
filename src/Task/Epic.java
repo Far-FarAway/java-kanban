@@ -15,14 +15,8 @@ public class Epic extends Task {
 
 
     public void addSubtask(Subtask subtask) {
-        if (!subtasksMap.containsValue(subtask)) {
-            int subtaskId = 1;
-            while(subtasksMap.containsKey(subtaskId)) {
-                subtaskId++;
-            }
-            subtask.setSubtaskId(subtaskId);
-            subtasksMap.put(subtaskId, subtask);
-        }
+
+        subtasksMap.put(id, subtask);
     }
 
     @Override
@@ -35,6 +29,9 @@ public class Epic extends Task {
         else { result += "\nОписание: " + description; }
 
         result += "\nСтатус: " + status;
+        for(Subtask subtask : subtasksMap.values()) {
+            result += "\n" + subtask;
+        }
 
         return result;
     }
