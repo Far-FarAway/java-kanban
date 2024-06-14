@@ -1,4 +1,4 @@
-import Manager.*;
+import manager.*;
 import task.*;
 
 public class Main {
