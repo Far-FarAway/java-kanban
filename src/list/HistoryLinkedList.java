@@ -1,4 +1,4 @@
-package ownList;
+package list;
 
 import task.Task;
 
