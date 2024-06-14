@@ -14,7 +14,7 @@ public class HistoryLinkedList<T extends Task> {
         if (oldHead == null) {
             tail = newNode;
         } else {
-            oldHead.next = newNode;
+            oldHead.prev = newNode;
         }
         size++;
     }
