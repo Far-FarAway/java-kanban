@@ -43,10 +43,10 @@ public class InMemoryTaskManagerTest {
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
 
         assertEquals(epic1, manager.getTask(epic1.getId()));
-        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getSubtaskId()));
+        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getId()));
 
-        assertEquals(epic2Subtask1, manager.getSubtask(epic2, epic2Subtask1.getSubtaskId()));
-        assertEquals(epic2Subtask2, manager.getSubtask(epic2, epic2Subtask2.getSubtaskId()));
+        assertEquals(epic2Subtask1, manager.getSubtask(epic2, epic2Subtask1.getId()));
+        assertEquals(epic2Subtask2, manager.getSubtask(epic2, epic2Subtask2.getId()));
 
     }
 
@@ -55,7 +55,7 @@ public class InMemoryTaskManagerTest {
         manager.addTask(epic1);
         epic1.addSubtask(epic1Subtask1);
 
-        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getSubtaskId()));
+        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getId()));
     }
 
     @Test
@@ -64,8 +64,8 @@ public class InMemoryTaskManagerTest {
 
         Map<Integer, Subtask> map = manager.getSubtasks(epic2);
 
-        assertEquals(epic2Subtask1, map.get(epic2Subtask1.getSubtaskId()));
-        assertEquals(epic2Subtask2, map.get(epic2Subtask2.getSubtaskId()));
+        assertEquals(epic2Subtask1, map.get(epic2Subtask1.getId()));
+        assertEquals(epic2Subtask2, map.get(epic2Subtask2.getId()));
     }
 
     @Test

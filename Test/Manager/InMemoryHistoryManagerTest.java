@@ -27,7 +27,7 @@ class InMemoryHistoryManagerTest {
     public void shouldAddInHistory() {
         manager.getTask(task1.getId());
         manager.getTask(epic1.getId());
-        manager.getSubtask(epic1, epic1Subtask1.getSubtaskId());
+        manager.getSubtask(epic1, epic1Subtask1.getId());
         manager.getSubtasks(epic2);
 
         assertEquals(5, manager.getHistory().size());
@@ -36,7 +36,7 @@ class InMemoryHistoryManagerTest {
     @Test
     public void shouldGiveCorrectHistory(){
         manager.getTask(task1.getId());
-        manager.getSubtask(epic1, epic1Subtask1.getSubtaskId());
+        manager.getSubtask(epic1, epic1Subtask1.getId());
         manager.getSubtasks(epic2);
 
         assertEquals(task1, manager.getHistory().getFirst());
