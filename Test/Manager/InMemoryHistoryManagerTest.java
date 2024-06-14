@@ -39,8 +39,8 @@ class InMemoryHistoryManagerTest {
         manager.getSubtask(epic1, epic1Subtask1.getId());
         manager.getSubtasks(epic2);
 
-        assertEquals(task1, manager.getHistory().getFirst());
-        assertEquals(epic2Subtask2, manager.getHistory().getLast());
+        assertEquals(epic2Subtask2, manager.getHistory().getFirst());
+        assertEquals(task1, manager.getHistory().getLast());
     }
 
     @Test
