@@ -14,9 +14,9 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
+        checkHistory(task.getId());
         historyList.addFirst(task);
         history.put(task.getId(), historyList.getFirst());
-        checkHistory(task.getId());
     }
 
     @Override
