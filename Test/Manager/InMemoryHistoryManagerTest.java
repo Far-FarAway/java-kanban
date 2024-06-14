@@ -42,4 +42,13 @@ class InMemoryHistoryManagerTest {
         assertEquals(task1, manager.getHistory().getFirst());
         assertEquals(epic2Subtask2, manager.getHistory().getLast());
     }
+
+    @Test
+    public void shouldNotContainsDuplicate(){
+        manager.getTask(task1.getId());
+        manager.getTask(epic1.getId());
+        manager.getTask(task1.getId());
+
+        assertEquals(2, manager.getHistory().size());
+    }
 }
