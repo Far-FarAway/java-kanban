@@ -32,5 +32,6 @@ public interface TaskManager {
     void updateStatus(Task task);
 
     String printHistory();
+
     List<Task> getHistory();
 }

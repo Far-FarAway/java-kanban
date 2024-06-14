@@ -13,7 +13,9 @@ public class Node<E extends Task> {
         this.next = next;
     }
 
-    public E getData(){ return data;}
+    public E getData() {
+        return data;
+    }
 
     public Node<E> getPrev() {
         return prev;

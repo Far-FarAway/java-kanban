@@ -1,6 +1,7 @@
 package HandMadeLinkedList;
 
 import Task.Task;
+
 public class HistoryLinkedList<T extends Task> {
 
     private Node<T> head = null;
@@ -39,16 +40,16 @@ public class HistoryLinkedList<T extends Task> {
         return tail;
     }
 
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
-    public void delete(Node<T> node){
+    public void delete(Node<T> node) {
         node.data = null;
-        if(node.prev == null && node.next == null){
-        } else if(node.prev == null) {
+        if (node.prev == null && node.next == null) {
+        } else if (node.prev == null) {
             node.next.prev = null;
-        } else if(node.next == null){
+        } else if (node.next == null) {
             node.prev.next = null;
         } else {
             node.prev.next = node.next;

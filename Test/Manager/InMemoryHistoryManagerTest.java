@@ -3,6 +3,7 @@ package Manager;
 import Task.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
@@ -16,13 +17,14 @@ class InMemoryHistoryManagerTest {
     Subtask epic2Subtask2 = new Subtask("Выйти погулять", "Это ножками делается");
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         manager = Managers.getDefault();
 
         manager.addTask(task1);
         manager.addTask(epic1, epic1Subtask1);
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
     }
+
     @Test
     public void shouldAddInHistory() {
         manager.getTask(task1.getId());
@@ -34,7 +36,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    public void shouldGiveCorrectHistory(){
+    public void shouldGiveCorrectHistory() {
         manager.getTask(task1.getId());
         manager.getSubtask(epic1, epic1Subtask1.getId());
         manager.getSubtasks(epic2);
@@ -44,7 +46,7 @@ class InMemoryHistoryManagerTest {
     }
 
     @Test
-    public void shouldNotContainsDuplicate(){
+    public void shouldNotContainsDuplicate() {
         manager.getTask(task1.getId());
         manager.getTask(epic1.getId());
         manager.getTask(task1.getId());

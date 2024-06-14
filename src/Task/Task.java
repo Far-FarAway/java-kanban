@@ -17,11 +17,17 @@ public class Task {
     @Override
     public String toString() {
         String result = "\n\nID: " + id;
-        if (name == null){ result += ""; }
-        else { result += "\n" + name; }
+        if (name == null) {
+            result += "";
+        } else {
+            result += "\n" + name;
+        }
 
-        if (description == null) { result += ""; }
-        else { result += "\nОписание: " + description; }
+        if (description == null) {
+            result += "";
+        } else {
+            result += "\nОписание: " + description;
+        }
 
         return result + "\nСтатус: " + status + "\n";
     }
@@ -68,7 +74,11 @@ public class Task {
         return description;
     }
 
-    public void setId(int id){ this.id = id;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getId(){ return id; }
+    public int getId() {
+        return id;
+    }
 }

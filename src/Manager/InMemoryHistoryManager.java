@@ -3,6 +3,7 @@ package Manager;
 import Task.Task;
 import HandMadeLinkedList.HistoryLinkedList;
 import HandMadeLinkedList.Node;
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         list.add(next.getData());
 
         for (int i = 1; i < historyList.getSize(); i++) {
-            if(next.getNext() != null) {
+            if (next.getNext() != null) {
                 next = next.getNext();
                 list.add(next.getData());
             }
@@ -50,12 +51,12 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void remove(int id){
+    public void remove(int id) {
         historyList.delete(history.get(id));
     }
 
-    public void checkHistory(int id){
-        if(history.containsKey(id)){
+    public void checkHistory(int id) {
+        if (history.containsKey(id)) {
             remove(id);
             history.remove(id);
         }
