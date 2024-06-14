@@ -37,8 +37,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     public void shouldAddAndGiveEpicWithSubtask(){
-        manager.addTask(epic1);
-        epic1.addSubtask(epic1Subtask1);
+        manager.addTask(epic1,epic1Subtask1);
 
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
 
@@ -52,8 +51,7 @@ public class InMemoryTaskManagerTest {
 
     @Test
     public void shouldAddAndGiveSubtask(){
-        manager.addTask(epic1);
-        epic1.addSubtask(epic1Subtask1);
+        manager.addTask(epic1, epic1Subtask1);
 
         assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getId()));
     }
