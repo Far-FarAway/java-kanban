@@ -41,8 +41,13 @@ public class HistoryLinkedList<T extends Task> {
 
     public void delete(Node<T> node){
         node.data = null;
-        Node<T> prev = node.prev;
-        node.prev.next = node.next;
-        node.next.prev = prev;
+        if(node.prev == null) {
+            node.next.prev = null;
+        } else if(node.next == null){
+            node.prev.next = null;
+        } else {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
     }
 }
