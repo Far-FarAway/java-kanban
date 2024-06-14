@@ -23,8 +23,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     public String toString() {
         String result = "История просмотров:";
         if (!history.isEmpty()) {
-            for (Node<Task> node : history.values()) {
-                result += node.getData();
+            for (Task task : getHistory()) {
+                result += task;
             }
         } else {
             result += "Пока пуста";
