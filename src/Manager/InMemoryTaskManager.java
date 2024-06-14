@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import Task.*;
 
 public class InMemoryTaskManager implements TaskManager {
-    protected int id = 1;
+    protected int id = 0;
     protected Map<Integer, Task> tasksMap = new HashMap<>();
     protected HistoryManager historyManager = Managers.getDefaultHistory();
 
@@ -17,10 +17,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Task o) {
         if(!tasksMap.containsValue(o)) {
-            id = 1;
-            while(tasksMap.containsKey(id)) {
-                id++;
-            }
+            id++;
             o.setId(id);
             tasksMap.put(id, o);
         }
@@ -34,8 +31,11 @@ public class InMemoryTaskManager implements TaskManager {
         }
 
         for(Subtask subtask : subtasks){
-            if (!epic.getSubtasksMap().containsValue(subtask)) {
-                epic.addSubtask(subtask);
+            Map<Integer, Subtask> subMap = epic.getSubtasksMap();
+
+            if (!subMap.containsValue(subtask)) {
+                id++;
+                epic.addSubtask(id, subtask);
             }
         }
     }
