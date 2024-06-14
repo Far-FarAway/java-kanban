@@ -1,4 +1,4 @@
-package OwnLinkedList;
+package OwnList;
 
 import Task.Task;
 
