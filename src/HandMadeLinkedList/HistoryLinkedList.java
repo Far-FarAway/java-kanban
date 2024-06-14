@@ -39,6 +39,10 @@ public class HistoryLinkedList<T extends Task> {
         return tail;
     }
 
+    public int getSize(){
+        return size;
+    }
+
     public void delete(Node<T> node){
         node.data = null;
         if(node.prev == null && node.next == null){
