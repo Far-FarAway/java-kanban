@@ -1,8 +1,8 @@
 package manager;
 
 import task.Task;
-import handMadeLinkedList.HistoryLinkedList;
-import handMadeLinkedList.Node;
+import HandMadeLinkedList.HistoryLinkedList;
+import HandMadeLinkedList.Node;
 
 import java.util.Map;
 import java.util.HashMap;
