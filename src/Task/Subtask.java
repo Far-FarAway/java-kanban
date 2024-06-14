@@ -6,7 +6,6 @@ public class Subtask extends Task {
     protected String name;
     protected Status status;
     protected String description;
-    protected int subtaskId;
 
     public Subtask(String name, String description) {
         super("","");
@@ -18,7 +17,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        String result = "\nID: " + subtaskId;
+        String result = "\nID: " + id;
         if(name == null){ result += ""; }
         else { result += "\n" + name; }
 
@@ -61,7 +60,4 @@ public class Subtask extends Task {
         this.description = description;
     }
 
-    public void setSubtaskId(int id){ this.subtaskId = id;}
-
-    public int getId(){ return subtaskId;}
 }
