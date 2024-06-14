@@ -14,9 +14,9 @@ public class Epic extends Task {
     public HashMap<Integer, Subtask> getSubtasksMap(){return new HashMap<>(subtasksMap);}
 
 
-    public void addSubtask(Subtask subtask) {
-
-        subtasksMap.put(id, subtask);
+    public void addSubtask(int subId, Subtask subtask) {
+        subtask.setId(subId);
+        subtasksMap.put(subId, subtask);
     }
 
     @Override
@@ -29,9 +29,6 @@ public class Epic extends Task {
         else { result += "\nОписание: " + description; }
 
         result += "\nСтатус: " + status;
-        for(Subtask subtask : subtasksMap.values()) {
-            result += "\n" + subtask;
-        }
 
         return result;
     }
