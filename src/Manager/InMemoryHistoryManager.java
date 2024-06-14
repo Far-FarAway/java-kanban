@@ -47,4 +47,11 @@ public class InMemoryHistoryManager implements HistoryManager {
     public void remove(int id){
         historyList.delete(history.get(id));
     }
+
+    public void checkHistory(int id){
+        if(history.containsKey(id)){
+            remove(id);
+            history.remove(id);
+        }
+    }
 }
