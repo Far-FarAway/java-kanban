@@ -14,4 +14,12 @@ public class Node<E extends Task> {
     }
 
     public E getData(){ return data;}
+
+    public Node<E> getPrev() {
+        return prev;
+    }
+
+    public Node<E> getNext() {
+        return next;
+    }
 }
