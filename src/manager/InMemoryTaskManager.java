@@ -139,22 +139,22 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public String toString() {
-        String result = "\n";
+        StringBuilder result = new StringBuilder("\n");
         for (Task task : tasksMap.values()) {
-            result += "\n" + task;
+            result.append("\n").append(task);
             if (task instanceof Epic) {
-                result += "\nПодзадачи: \n";
+                result.append("\nПодзадачи: \n");
 
                 if (((Epic) task).getSubtasksMap().isEmpty()) {
-                    result += "\nПодзадач пока нет\n";
+                    result.append("\nПодзадач пока нет\n");
                 } else {
                     for (Subtask subtask : ((Epic) task).getSubtasksMap().values()) {
-                        result += subtask + "\n";
+                        result.append(subtask).append("\n");
                     }
                 }
             }
         }
-        return result;
+        return result.toString();
     }
 
     @Override

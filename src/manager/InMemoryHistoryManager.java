@@ -22,16 +22,16 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public String toString() {
-        String result = "История просмотров:";
+        StringBuilder result = new StringBuilder("История просмотров:");
         if (!history.isEmpty()) {
             for (Task task : getHistory()) {
-                result += task;
+                result.append(task);
             }
         } else {
-            result += "Пока пуста";
+            result.append("Пока пуста");
         }
 
-        return result;
+        return result.toString();
     }
 
     @Override
