@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private HistoryLinkedList<Task> historyList = new HistoryLinkedList<>();
-    private Map<Integer, Node<Task>> history = new HashMap<>();
+    protected HistoryLinkedList<Task> historyList = new HistoryLinkedList<>();
+    protected Map<Integer, Node<Task>> history = new HashMap<>();
 
     @Override
     public void add(Task task) {
