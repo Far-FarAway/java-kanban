@@ -32,20 +32,6 @@ public class Task {
         return result + "\nСтатус: " + status + "\n";
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, id, status);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description)
-                && status == task.status;
-    }
-
     public void setStatus(Status status) {
         if (status != Status.DONE && status != Status.IN_PROGRESS && status != Status.NEW) {
             System.out.println("Такого статуса нет");
@@ -80,5 +66,19 @@ public class Task {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, id, status);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description)
+                && status == task.status;
     }
 }
