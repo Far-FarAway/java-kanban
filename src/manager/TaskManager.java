@@ -1,6 +1,6 @@
-package Manager;
+package manager;
 
-import Task.*;
+import task.*;
 
 import java.util.List;
 import java.util.Map;
@@ -32,5 +32,6 @@ public interface TaskManager {
     void updateStatus(Task task);
 
     String printHistory();
+
     List<Task> getHistory();
 }

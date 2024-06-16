@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 import java.util.Objects;
 
@@ -17,27 +17,19 @@ public class Task {
     @Override
     public String toString() {
         String result = "\n\nID: " + id;
-        if (name == null){ result += ""; }
-        else { result += "\n" + name; }
+        if (name == null) {
+            result += "";
+        } else {
+            result += "\n" + name;
+        }
 
-        if (description == null) { result += ""; }
-        else { result += "\nОписание: " + description; }
+        if (description == null) {
+            result += "";
+        } else {
+            result += "\nОписание: " + description;
+        }
 
         return result + "\nСтатус: " + status + "\n";
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, description, id, status);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description)
-                && status == task.status;
     }
 
     public void setStatus(Status status) {
@@ -68,7 +60,25 @@ public class Task {
         return description;
     }
 
-    public void setId(int id){ this.id = id;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getId(){ return id; }
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, id, status);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description)
+                && status == task.status;
+    }
 }
