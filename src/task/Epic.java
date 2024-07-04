@@ -1,4 +1,4 @@
-package Task;
+package task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,28 +11,30 @@ public class Epic extends Task {
         super(name, description);
     }
 
-    public HashMap<Integer, Subtask> getSubtasksMap(){return new HashMap<>(subtasksMap);}
+    public HashMap<Integer, Subtask> getSubtasksMap() {
+        return new HashMap<>(subtasksMap);
+    }
 
 
-    public void addSubtask(Subtask subtask) {
-        if (!subtasksMap.containsValue(subtask)) {
-            int subtaskId = 1;
-            while(subtasksMap.containsKey(subtaskId)) {
-                subtaskId++;
-            }
-            subtask.setSubtaskId(subtaskId);
-            subtasksMap.put(subtaskId, subtask);
-        }
+    public void addSubtask(int subId, Subtask subtask) {
+        subtask.setId(subId);
+        subtasksMap.put(subId, subtask);
     }
 
     @Override
     public String toString() {
         String result = "\n\nID: " + id;
-        if (name == null){ result += ""; }
-        else { result += "\n" + name; }
+        if (name == null) {
+            result += "";
+        } else {
+            result += "\n" + name;
+        }
 
-        if (description == null) { result += ""; }
-        else { result += "\nОписание: " + description; }
+        if (description == null) {
+            result += "";
+        } else {
+            result += "\nОписание: " + description;
+        }
 
         result += "\nСтатус: " + status;
 
@@ -40,10 +42,10 @@ public class Epic extends Task {
     }
 
     @Override
-    public boolean equals(Object o){
-        if(o == this) return true;
-        if(o == null || o.getClass() != this.getClass()) return false;
-        Epic epic = (Epic)o;
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (o == null || o.getClass() != this.getClass()) return false;
+        Epic epic = (Epic) o;
         return Objects.equals(epic.subtasksMap, this.subtasksMap);
     }
 
@@ -57,7 +59,7 @@ public class Epic extends Task {
 
         if (count == subtasksMap.size()) {
             setStatus(Status.DONE);
-        } else if(count > 0) {
+        } else if (count > 0) {
             setStatus(Status.IN_PROGRESS);
         } else {
             setStatus(Status.NEW);

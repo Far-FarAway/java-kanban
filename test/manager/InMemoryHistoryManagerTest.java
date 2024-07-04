@@ -1,8 +1,9 @@
-package Manager;
+package manager;
 
-import Task.*;
+import task.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryHistoryManagerTest {
@@ -16,30 +17,40 @@ class InMemoryHistoryManagerTest {
     Subtask epic2Subtask2 = new Subtask("Выйти погулять", "Это ножками делается");
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         manager = Managers.getDefault();
 
         manager.addTask(task1);
         manager.addTask(epic1, epic1Subtask1);
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
     }
+
     @Test
     public void shouldAddInHistory() {
         manager.getTask(task1.getId());
         manager.getTask(epic1.getId());
-        manager.getSubtask(epic1, epic1Subtask1.getSubtaskId());
+        manager.getSubtask(epic1, epic1Subtask1.getId());
         manager.getSubtasks(epic2);
 
         assertEquals(5, manager.getHistory().size());
     }
 
     @Test
-    public void shouldGiveCorrectHistory(){
+    public void shouldGiveCorrectHistory() {
         manager.getTask(task1.getId());
-        manager.getSubtask(epic1, epic1Subtask1.getSubtaskId());
+        manager.getSubtask(epic1, epic1Subtask1.getId());
         manager.getSubtasks(epic2);
 
-        assertEquals(task1, manager.getHistory().getFirst());
-        assertEquals(epic2Subtask2, manager.getHistory().getLast());
+        assertEquals(epic2Subtask2, manager.getHistory().getFirst());
+        assertEquals(task1, manager.getHistory().getLast());
+    }
+
+    @Test
+    public void shouldNotContainsDuplicate() {
+        manager.getTask(task1.getId());
+        manager.getTask(epic1.getId());
+        manager.getTask(task1.getId());
+
+        assertEquals(2, manager.getHistory().size());
     }
 }

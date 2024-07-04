@@ -1,13 +1,12 @@
-package Manager;
+package manager;
 
-import Task.*;
+import task.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskManagerTest {
@@ -24,52 +23,50 @@ public class InMemoryTaskManagerTest {
 
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         manager = Managers.getDefault();
     }
 
     @Test
-    public void shouldAddAndGiveTask(){
+    public void shouldAddAndGiveTask() {
         manager.addTask(task1);
 
         assertEquals(task1, manager.getTask(task1.getId()));
     }
 
     @Test
-    public void shouldAddAndGiveEpicWithSubtask(){
-        manager.addTask(epic1);
-        epic1.addSubtask(epic1Subtask1);
+    public void shouldAddAndGiveEpicWithSubtask() {
+        manager.addTask(epic1, epic1Subtask1);
 
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
 
         assertEquals(epic1, manager.getTask(epic1.getId()));
-        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getSubtaskId()));
+        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getId()));
 
-        assertEquals(epic2Subtask1, manager.getSubtask(epic2, epic2Subtask1.getSubtaskId()));
-        assertEquals(epic2Subtask2, manager.getSubtask(epic2, epic2Subtask2.getSubtaskId()));
+        assertEquals(epic2Subtask1, manager.getSubtask(epic2, epic2Subtask1.getId()));
+        assertEquals(epic2Subtask2, manager.getSubtask(epic2, epic2Subtask2.getId()));
 
     }
 
     @Test
-    public void shouldAddAndGiveSubtask(){
-        manager.addTask(epic1);
-        epic1.addSubtask(epic1Subtask1);
+    public void shouldAddAndGiveSubtask() {
+        manager.addTask(epic1, epic1Subtask1);
 
-        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getSubtaskId()));
+        assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getId()));
     }
 
     @Test
-    public void shouldGiveSubtasksMap(){
+    public void shouldGiveSubtasksMap() {
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
 
         Map<Integer, Subtask> map = manager.getSubtasks(epic2);
 
-        assertEquals(epic2Subtask1, map.get(epic2Subtask1.getSubtaskId()));
-        assertEquals(epic2Subtask2, map.get(epic2Subtask2.getSubtaskId()));
+        assertEquals(epic2Subtask1, map.get(epic2Subtask1.getId()));
+        assertEquals(epic2Subtask2, map.get(epic2Subtask2.getId()));
     }
 
     @Test
-    public void shouldUpdateStatusInformationAndTask(){
+    public void shouldUpdateStatusInformationAndTask() {
         manager.addTask(task1);
         manager.addTask(task2);
 
@@ -93,7 +90,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void shouldUpdateEpicAndSubtaskStatus(){
+    public void shouldUpdateEpicAndSubtaskStatus() {
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
 
         manager.updateStatus(epic2Subtask1);
@@ -110,7 +107,7 @@ public class InMemoryTaskManagerTest {
 
 
     @Test
-    public void shouldDeleteAllTasks(){
+    public void shouldDeleteAllTasks() {
         manager.addTask(task1);
         manager.addTask(task2);
         manager.addTask(epic1, epic1Subtask1);
@@ -122,26 +119,26 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void shouldGiveNullWithNonexistentTask(){
+    public void shouldGiveNullWithNonexistentTask() {
         assertNull(manager.getTask(task1.getId()));
         assertNull(manager.getSubtask(epic1, -3));
         assertNull(manager.getSubtasks(epic1));
     }
 
     @Test
-    public void shouldGiveTrueWithSimilarTaskId(){
+    public void shouldGiveTrueWithSimilarTaskId() {
         int id = task1.getId();
         assertEquals(id, task1.getId());
     }
 
     @Test
-    public void shouldGiveTrueWithSimilarSubtaskId(){
+    public void shouldGiveTrueWithSimilarSubtaskId() {
         int id = epic1Subtask1.getId();
         assertEquals(id, epic1Subtask1.getId());
     }
 
     @Test
-    public void shouldGiveReadyToWorkManagers(){
+    public void shouldGiveReadyToWorkManagers() {
         manager.addTask(task1);
         manager.getTask(task1.getId());
 
@@ -154,7 +151,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void shouldNotChangeInformationWhenAddNewTaskAndAddToHistory(){
+    public void shouldNotChangeInformationWhenAddNewTaskAndAddToHistory() {
         String name = task1.getName();
         String description = task1.getDescription();
 
