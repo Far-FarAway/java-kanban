@@ -37,9 +37,13 @@ public class Subtask extends Task {
         this.name = name;
     }
 
+    public String getSubtaskName(){ return name; }
+
     public void setSubtaskDescription(String description) {
         this.description = description;
     }
+
+    public String getSubtaskDescription(){ return description; }
 
     @Override
     public String toString() {
