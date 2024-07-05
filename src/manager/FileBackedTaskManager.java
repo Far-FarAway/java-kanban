@@ -18,17 +18,20 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     private void save() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            bw.write("id,type,name,status,description\n");
-            for (Task task : tasksMap.values()) { //проверь, что подзадачи корректно дополняются
+            bw.write("id,type,name,status,description,epic\n");
+            for (Task task : tasksMap.values()) {
                 if (task instanceof Epic epic) {
                     bw.write(epic.getId() + ",EPIC," + epic.getName() + "," + epic.getStatus() + "," +
-                            epic.getDescription() + "\n");
-                } else if (task instanceof Subtask subtask) {
-                    bw.write(subtask.getId() + ",SUBTASK," + subtask.getName() + "," + subtask.getSubtaskStatus() +
-                            "," + subtask.getDescription() + "\n");
+                            epic.getDescription() + ",\n");
+                    if(!epic.getSubtasksMap().isEmpty()){
+                        for(Subtask subtask : epic.getSubtasksMap().values()){
+                            bw.write(subtask.getId() + ",SUBTASK," + subtask.getSubtaskName() + "," + subtask.getSubtaskStatus() +
+                                    "," + subtask.getSubtaskDescription() + "," + epic.getId() + "\n");
+                        }
+                    }
                 } else {
                     bw.write(task.getId() + ",TASK," + task.getName() + "," + task.getStatus() +
-                            "," + task.getDescription() + "\n");
+                            "," + task.getDescription() + ",\n");
                 }
             }
         } catch (IOException ex) {
