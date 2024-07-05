@@ -9,7 +9,7 @@ import task.*;
 
 public class InMemoryTaskManager implements TaskManager {
     protected int id = 0;
-    protected static Map<Integer, Task> tasksMap = new HashMap<>();
+    protected Map<Integer, Task> tasksMap = new HashMap<>();
     protected HistoryManager historyManager = Managers.getDefaultHistory();
 
 
