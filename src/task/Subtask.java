@@ -15,6 +15,26 @@ public class Subtask extends Task {
     }
 
 
+    public Status getSubtaskStatus() {
+        return status;
+    }
+
+    public void setSubtaskStatus(Status status) {
+        if (status != Status.DONE && status != Status.IN_PROGRESS && status != Status.NEW) {
+            System.out.println("Такого статуса нет");
+        } else {
+            this.status = status;
+        }
+    }
+
+    public void setSubtaskName(String name) {
+        this.name = name;
+    }
+
+    public void setSubtaskDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         String result = "\nID: " + id;
@@ -45,25 +65,4 @@ public class Subtask extends Task {
         Subtask sub = (Subtask) o;
         return Objects.equals(sub.name, this.name) && Objects.equals(sub.status, this.status);
     }
-
-    public Status getSubtaskStatus() {
-        return status;
-    }
-
-    public void setSubtaskStatus(Status status) {
-        if (status != Status.DONE && status != Status.IN_PROGRESS && status != Status.NEW) {
-            System.out.println("Такого статуса нет");
-        } else {
-            this.status = status;
-        }
-    }
-
-    public void setSubtaskName(String name) {
-        this.name = name;
-    }
-
-    public void setSubtaskDescription(String description) {
-        this.description = description;
-    }
-
 }
