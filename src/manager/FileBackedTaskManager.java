@@ -42,6 +42,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     public static void loadFromFile(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            br.readLine();
             while (br.ready()){
                 String[] info = br.readLine().split(",");
                 if (info[1].equals("TASK")){
