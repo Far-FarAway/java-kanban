@@ -24,7 +24,7 @@ public class Main {
         manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
 
         System.out.println(manager);
-
+        /*
         System.out.println("\nУдаление задач");
         manager.deleteByIds(2,3);
 
@@ -54,8 +54,9 @@ public class Main {
 
         System.out.println(manager);
 
-        //manager.deleteAllTasks();
+        manager.deleteAllTasks();
 
-        //System.out.println(manager);
+        System.out.println(manager);
+        */
     }
 }
