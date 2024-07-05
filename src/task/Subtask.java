@@ -14,6 +14,12 @@ public class Subtask extends Task {
         status = Status.NEW;
     }
 
+    public Subtask(String name, String description, Status status) {
+        super("", "");
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
 
     public Status getSubtaskStatus() {
         return status;
