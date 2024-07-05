@@ -49,11 +49,13 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 } else if (info[1].equals("EPIC")) {
                     tasksMap.put(Integer.parseInt(info[0]), new Epic(info[2], info[4], Status.valueOf(info[3])));
                 } else {
-                    tasksMap.put(Integer.parseInt(info[0]), new Subtask(info[2], info[4], Status.valueOf(info[3])));
+                    Epic epic = (Epic)tasksMap.get(Integer.parseInt(info[5]));
+                    epic.addSubtask(Integer.parseInt(info[0]), new Subtask(info[2], info[4], Status.valueOf(info[3])));
                 }
             }
         } catch (IOException ex) {
             System.out.println("Исключение во время попытки загрузить данные задач из файла");
+            ex.printStackTrace();
         }
     }
 
