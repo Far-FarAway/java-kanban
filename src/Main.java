@@ -3,7 +3,7 @@ import task.*;
 
 public class Main {
     public static void main(String[] args) {
-        InMemoryTaskManager manager = new InMemoryTaskManager();
+        FileBackedTaskManager manager = new FileBackedTaskManager("src/saveFile/savedTasks.txt");
 
         Task task1 = new Task("Тренировка", "Вот так вот");
         Task task2 = new Task("Вымыть кота", "Найти и запихать в ванну");
@@ -54,8 +54,8 @@ public class Main {
 
         System.out.println(manager);
 
-        manager.deleteAllTasks();
+        //manager.deleteAllTasks();
 
-        System.out.println(manager);
+        //System.out.println(manager);
     }
 }
