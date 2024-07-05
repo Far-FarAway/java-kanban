@@ -29,7 +29,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 }
             }
         } catch (IOException ex) {
-            System.out.println("Исключение ао вреия работы с потоками");
+            System.out.println("Исключение во время попытки автосохранения");
             ex.printStackTrace();
         }
     }
