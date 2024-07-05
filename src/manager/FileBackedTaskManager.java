@@ -1,11 +1,11 @@
 package manager;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.nio.file.Path;
 
 import task.*;
 
@@ -40,18 +40,29 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
         }
     }
 
-    public static void loadFromFile(File file) {
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+    public void loadFromFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader(Path.of(filename).toFile()))) {
             br.readLine();
             while (br.ready()){
                 String[] info = br.readLine().split(",");
-                if (info[1].equals("TASK")){
-                    tasksMap.put(Integer.parseInt(info[0]), new Task(info[2], info[4], Status.valueOf(info[3])));
-                } else if (info[1].equals("EPIC")) {
-                    tasksMap.put(Integer.parseInt(info[0]), new Epic(info[2], info[4], Status.valueOf(info[3])));
-                } else {
-                    Epic epic = (Epic)tasksMap.get(Integer.parseInt(info[5]));
-                    epic.addSubtask(Integer.parseInt(info[0]), new Subtask(info[2], info[4], Status.valueOf(info[3])));
+                if(info.length > 1) {
+                    if (info[1].equals("TASK")) {
+                        Task task = new Task(info[2], info[4], Status.valueOf(info[3]));
+                        int id = Integer.parseInt(info[0]);
+                        task.setId(id);
+                        tasksMap.put(id, task);
+                    } else if (info[1].equals("EPIC")) {
+                        Epic epic =  new Epic(info[2], info[4], Status.valueOf(info[3]));
+                        int id = Integer.parseInt(info[0]);
+                        epic.setId(id);
+                        tasksMap.put(id, epic);
+                    } else {
+                        Epic epic = (Epic) tasksMap.get(Integer.parseInt(info[5]));
+                        Subtask subtask = new Subtask(info[2], info[4], Status.valueOf(info[3]));
+                        int id = Integer.parseInt(info[0]);
+                        subtask.setId(id);
+                        epic.addSubtask(id, subtask);
+                    }
                 }
             }
         } catch (IOException ex) {
