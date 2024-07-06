@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Epic extends Task {
     protected Map<Integer, Subtask> subtasksMap = new HashMap<>();
+
     public HashMap<Integer, Subtask> getSubtasksMap() {
         return new HashMap<>(subtasksMap);
     }
