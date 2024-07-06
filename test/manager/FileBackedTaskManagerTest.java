@@ -4,18 +4,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import task.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class FileBackedTaskManagerTest {
-    String filename = "src/saveFile/savedTasks.txt";
+    File tempFile;
     TaskManager manager;
     @BeforeEach
-    public void beforeEach(){
-        manager = Managers.getDefaultSave(filename);
+    public void beforeEach() throws IOException {
+        tempFile = File.createTempFile("test", ".txt", new File("src/saveFile"));
+        manager = Managers.getDefaultSave(tempFile.getPath());
     }
 
     @Test
@@ -30,7 +29,7 @@ class FileBackedTaskManagerTest {
 
         String[] givenTypes = new String[3];
 
-        try (BufferedReader br = new BufferedReader(new FileReader("src/saveFile/savedTasks.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(tempFile.getPath()))) {
             br.readLine();
             while (br.ready()) {
                 String[] line = br.readLine().split(",");
@@ -47,7 +46,14 @@ class FileBackedTaskManagerTest {
     }
 
     @Test
-    public void shouldFillTasksMapFromFile(){
+    public void shouldFillTasksMapFromFile() throws IOException{
+        try (FileWriter fw = new FileWriter(tempFile.getPath())){
+            fw.write("id,type,name,status,description,epic\n" +
+                    "1,TASK,Тренировка,NEW,Вот так вот,\n" +
+                    "2,EPIC,Попасть в исекай,NEW,Почему бы и нет,\n" +
+                    "3,SUBTASK,Найти белый грузовичок,NEW,Самый надежный способ,2");
+        }
+
         ((FileBackedTaskManager)manager).loadFromFile();
         int[] givenIds = new int[3];
 
