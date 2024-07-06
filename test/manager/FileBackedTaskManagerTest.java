@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileBackedTaskManagerTest {
     File tempFile;
     TaskManager manager;
+
     @BeforeEach
     public void beforeEach() throws IOException {
         tempFile = File.createTempFile("test", ".txt", new File("src/saveFile"));
@@ -19,7 +20,7 @@ class FileBackedTaskManagerTest {
     }
 
     @AfterEach
-    public void afterEach(){
+    public void afterEach() {
         tempFile.deleteOnExit();
     }
 
@@ -52,28 +53,28 @@ class FileBackedTaskManagerTest {
     }
 
     @Test
-    public void shouldFillTasksMapFromFile() throws IOException{
-        try (FileWriter fw = new FileWriter(tempFile.getPath())){
+    public void shouldFillTasksMapFromFile() throws IOException {
+        try (FileWriter fw = new FileWriter(tempFile.getPath())) {
             fw.write("id,type,name,status,description,epic\n" +
                     "1,TASK,Тренировка,NEW,Вот так вот,\n" +
                     "2,EPIC,Попасть в исекай,NEW,Почему бы и нет,\n" +
                     "3,SUBTASK,Найти белый грузовичок,NEW,Самый надежный способ,2");
         }
 
-        ((FileBackedTaskManager)manager).loadFromFile();
+        ((FileBackedTaskManager) manager).loadFromFile();
         int[] givenIds = new int[3];
 
-        for(Task task : manager.getTasksList()){
+        for (Task task : manager.getTasksList()) {
             givenIds[task.getId() - 1] = task.getId();
 
-            if(task instanceof Epic epic){
-                for(Subtask subtask : epic.getSubtasksMap().values()){
-                    givenIds[subtask.getId()-1] = subtask.getId();
+            if (task instanceof Epic epic) {
+                for (Subtask subtask : epic.getSubtasksMap().values()) {
+                    givenIds[subtask.getId() - 1] = subtask.getId();
                 }
             }
         }
 
-        int[] correctIds = new int[] {1, 2, 3};
+        int[] correctIds = new int[]{1, 2, 3};
 
         assertArrayEquals(correctIds, givenIds);
     }

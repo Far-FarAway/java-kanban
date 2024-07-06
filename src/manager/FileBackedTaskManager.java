@@ -23,8 +23,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 if (task instanceof Epic epic) {
                     bw.write(epic.getId() + ",EPIC," + epic.getName() + "," + epic.getStatus() + "," +
                             epic.getDescription() + ",\n");
-                    if(!epic.getSubtasksMap().isEmpty()){
-                        for(Subtask subtask : epic.getSubtasksMap().values()){
+                    if (!epic.getSubtasksMap().isEmpty()) {
+                        for (Subtask subtask : epic.getSubtasksMap().values()) {
                             bw.write(subtask.getId() + ",SUBTASK," + subtask.getSubtaskName() + "," + subtask.getSubtaskStatus() +
                                     "," + subtask.getSubtaskDescription() + "," + epic.getId() + "\n");
                         }
@@ -43,16 +43,16 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     public void loadFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader(Path.of(filename).toFile()))) {
             br.readLine();
-            while (br.ready()){
+            while (br.ready()) {
                 String[] info = br.readLine().split(",");
-                if(info.length > 1) {
+                if (info.length > 1) {
                     if (info[1].equals("TASK")) {
                         Task task = new Task(info[2], info[4], Status.valueOf(info[3]));
                         int id = Integer.parseInt(info[0]);
                         task.setId(id);
                         tasksMap.put(id, task);
                     } else if (info[1].equals("EPIC")) {
-                        Epic epic =  new Epic(info[2], info[4], Status.valueOf(info[3]));
+                        Epic epic = new Epic(info[2], info[4], Status.valueOf(info[3]));
                         int id = Integer.parseInt(info[0]);
                         epic.setId(id);
                         tasksMap.put(id, epic);
