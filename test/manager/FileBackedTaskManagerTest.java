@@ -2,6 +2,7 @@ package manager;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import task.*;
 
 import java.io.*;
@@ -15,6 +16,11 @@ class FileBackedTaskManagerTest {
     public void beforeEach() throws IOException {
         tempFile = File.createTempFile("test", ".txt", new File("src/saveFile"));
         manager = Managers.getDefaultSave(tempFile.getPath());
+    }
+
+    @AfterEach
+    public void afterEach(){
+        tempFile.deleteOnExit();
     }
 
     @Test
