@@ -52,7 +52,13 @@ class FileBackedTaskManagerTest {
         int[] givenIds = new int[3];
 
         for(Task task : manager.getTasksList()){
-            givenIds[task.getId()-1] = task.getId();
+            givenIds[task.getId() - 1] = task.getId();
+
+            if(task instanceof Epic epic){
+                for(Subtask subtask : epic.getSubtasksMap().values()){
+                    givenIds[subtask.getId()-1] = subtask.getId();
+                }
+            }
         }
 
         int[] correctIds = new int[] {1, 2, 3};
