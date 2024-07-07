@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import task.Task;
 import task.Epic;
 import task.Subtask;
+import task.Status;
 
 public class FileBackedTaskManager extends InMemoryTaskManager implements TaskManager {
     protected String filename;
@@ -37,7 +38,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
             }
         } catch (IOException ex) {
             System.out.println("Исключение во время попытки автосохранения");
-            ex.printStackTrace();
         }
     }
 
@@ -68,7 +68,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
             }
         } catch (IOException ex) {
             System.out.println("Исключение во время попытки загрузить данные задач из файла");
-            ex.printStackTrace();
         }
     }
 
