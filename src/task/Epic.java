@@ -7,14 +7,17 @@ import java.util.Objects;
 public class Epic extends Task {
     protected Map<Integer, Subtask> subtasksMap = new HashMap<>();
 
-    public Epic(String name, String description) {
-        super(name, description);
-    }
-
     public HashMap<Integer, Subtask> getSubtasksMap() {
         return new HashMap<>(subtasksMap);
     }
 
+    public Epic(String name, String description) {
+        super(name, description);
+    }
+
+    public Epic(String name, String description, Status status) {
+        super(name, description, status);
+    }
 
     public void addSubtask(int subId, Subtask subtask) {
         subtask.setId(subId);
