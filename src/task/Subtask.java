@@ -78,20 +78,21 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        String result = "\nID: " + id;
-        if (name == null) {
+        String result = "\t\nID: " + id;
+        result += name == null ? "":"\t\n" + name;
+        result += description == null ? "":"\t\nОписание: " + description;
+        result += "\t\nСтатус: " + status;
+
+        if(startTime.getYear() == 1) {
             result += "";
         } else {
-            result += "\n" + name;
+            result += "\t\nДата начала: " + startTime.format(FORMATTER);
+            result += "\t\nДата окончания: " + getEndTime().format(FORMATTER);
         }
 
-        if (description == null) {
-            result += "";
-        } else {
-            result += "\nОписание: " + description;
-        }
+        result += duration.toMinutes() == 0 ? "":"\t\nПродолжительность: " + duration.toMinutes();
 
-        return result + "\nСтатус:" + status;
+        return result;
     }
 
     @Override

@@ -84,15 +84,15 @@ public class Task {
 
         result += name == null ? "":"\n" + name;
         result += description == null ? "":"\nОписание: " + description;
+        result += "\nСтатус: " + status + "\n";
 
         if(startTime.getYear() == 1) {
             result += "";
         } else {
             result += "\nДата начала: " + startTime.format(FORMATTER);
-            result += "\nДата окончания: " + getEndTime();
+            result += "\nДата окончания: " + getEndTime().format(FORMATTER);
         }
 
-        result += "\nСтатус: " + status + "\n";
         result += duration.toMinutes() == 0 ? "":"\nПродолжительность: " + duration.toMinutes();
 
         return result;

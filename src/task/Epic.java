@@ -39,7 +39,6 @@ public class Epic extends Task {
     private void findDurationAndStartEndTime() {
         LocalDateTime earliestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
         LocalDateTime latestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
-        Duration duration = Duration.ofMinutes(0);
         for (Subtask sub : subtasksMap.values()) {
             LocalDateTime subStartTime = sub.getStartTime();
             LocalDateTime subEndTime = sub.getEndTime();
@@ -49,11 +48,10 @@ public class Epic extends Task {
             if (subEndTime.isAfter(latestTime)){
                 latestTime = subEndTime;
             }
-            duration.plus(sub.getDuration());
         }
         this.startTime = earliestTime;
         this.endTime = latestTime;
-        this.duration = duration;
+        this.duration = Duration.between(earliestTime, latestTime);
 
     }
 /*
@@ -104,19 +102,19 @@ public class Epic extends Task {
     @Override
     public String toString() {
         String result = "\n\nID: " + id;
-        if (name == null) {
-            result += "";
-        } else {
-            result += "\n" + name;
-        }
 
-        if (description == null) {
-            result += "";
-        } else {
-            result += "\nОписание: " + description;
-        }
-
+        result += name == null ? "":"\n" + name;
+        result += description == null ? "":"\nОписание: " + description;
         result += "\nСтатус: " + status;
+
+        if(startTime.getYear() == 1) {
+            result += "";
+        } else {
+            result += "\nДата начала: " + startTime.format(FORMATTER);
+            result += "\nДата окончания: " + endTime.format(FORMATTER);
+        }
+
+        result += duration.toMinutes() == 0 ? "":"\nПродолжительность: " + duration.toMinutes();
 
         return result;
     }
