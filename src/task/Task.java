@@ -80,11 +80,11 @@ public class Task {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("\n\nID: " + id);
+        StringBuilder result = new StringBuilder("\nID: " + id);
 
         result.append(name == null ? "":"\n" + name);
         result.append(description == null ? "":"\nОписание: " + description);
-        result.append("\nСтатус: ").append(status).append("\n");
+        result.append("\nСтатус: ").append(status);
 
         if(startTime.getYear() != 1) {
             result.append("\nДата начала: ").append(startTime.format(FORMATTER));

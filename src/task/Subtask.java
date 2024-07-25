@@ -78,18 +78,18 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder("\n\nID: " + id);
+        StringBuilder result = new StringBuilder("\n\tID: " + id);
 
-        result.append(name == null ? "":"\n" + name);
-        result.append(description == null ? "":"\nОписание: " + description);
-        result.append("\nСтатус: ").append(status).append("\n");
+        result.append(name == null ? "":"\n\t" + name);
+        result.append(description == null ? "":"\n\tОписание: " + description);
+        result.append("\n\tСтатус: ").append(status);
 
         if(startTime.getYear() != 1) {
-            result.append("\nДата начала: ").append(startTime.format(FORMATTER));
-            result.append("\nДата окончания: ").append(getEndTime().format(FORMATTER));
+            result.append("\n\tДата начала: ").append(startTime.format(FORMATTER));
+            result.append("\n\tДата окончания: ").append(getEndTime().format(FORMATTER));
         }
 
-        result.append(duration.toMinutes() == 0 ? "":"\nПродолжительность: " + duration.toMinutes());
+        result.append(duration.toMinutes() == 0 ? "":"\n\tПродолжительность: " + duration.toMinutes());
 
         return result.toString();
     }
