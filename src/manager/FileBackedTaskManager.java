@@ -34,7 +34,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                         for (Subtask subtask : epic.getSubtasksMap().values()) {
                             bw.write(subtask.getId() + ",SUBTASK," + subtask.getSubtaskName() + "," +
                                     subtask.getSubtaskStatus() + "," + subtask.getSubtaskDescription() + "," +
-                                    epic.getId() + subtask.getStartTime().format(FORMATTER) + "," +
+                                    epic.getId() + "," + subtask.getStartTime().format(FORMATTER) + "," +
                                     subtask.getDuration().toMinutes() + "\n");
                         }
                     }
