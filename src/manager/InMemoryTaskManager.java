@@ -119,18 +119,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task updateInformation(Task task, String nameOrDescription, String info) {
-
-        if (task.getClass() == Task.class) {
-            if (nameOrDescription.equals("name")) {
-                task.setName(info);
-            } else if (nameOrDescription.equals("description")) {
-                task.setDescription(info);
-            }
-        } else if (task.getClass() == Subtask.class) {
+        if (task.getClass() == Subtask.class) {
             if (nameOrDescription.equals("name")) {
                 ((Subtask) task).setSubtaskName(info);
             } else if (nameOrDescription.equals("description")) {
                 ((Subtask) task).setSubtaskDescription(info);
+            }
+        } else {
+            if (nameOrDescription.equals("name")) {
+                task.setName(info);
+            } else if (nameOrDescription.equals("description")) {
+                task.setDescription(info);
             }
         }
 
