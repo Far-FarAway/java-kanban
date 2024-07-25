@@ -81,19 +81,21 @@ public class Task {
     @Override
     public String toString() {
         String result = "\n\nID: " + id;
-        if (name == null) {
+
+        result += name == null ? "":"\n" + name;
+        result += description == null ? "":"\nОписание: " + description;
+
+        if(startTime.getYear() == 1) {
             result += "";
         } else {
-            result += "\n" + name;
+            result += "\nДата начала: " + startTime.format(FORMATTER);
+            result += "\nДата окончания: " + getEndTime();
         }
 
-        if (description == null) {
-            result += "";
-        } else {
-            result += "\nОписание: " + description;
-        }
+        result += "\nСтатус: " + status + "\n";
+        result += duration.toMinutes() == 0 ? "":"\nПродолжительность: " + duration.toMinutes();
 
-        return result + "\nСтатус: " + status + "\n";
+        return result;
     }
 
     @Override
