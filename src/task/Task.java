@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
-    protected final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+    public final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     protected String name;
     protected String description;
     protected int id;
@@ -19,7 +19,7 @@ public class Task {
         this.description = description;
         this.status = Status.NEW;
         duration = Duration.ofMinutes(minutes);
-        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER); //может вызвать исключение в эпиках и сабах
     }
 
     public Task(String name, String description, Status status, int minutes, String startTime) {
@@ -30,20 +30,16 @@ public class Task {
         this.startTime = LocalDateTime.parse(startTime, FORMATTER);
     }
 
-    public Task(String name, String description) {
-        this.name = name;
-        this.description = description;
-        this.status = Status.NEW;
-    }
-
-    public Task(String name, String description, Status status) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-    }
-
     public LocalDateTime getEndTime() {
         return startTime.plusMinutes(duration.toMinutes());
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
     public void setStatus(Status status) {
