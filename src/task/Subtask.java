@@ -1,24 +1,51 @@
 package task;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Subtask extends Task {
     protected String name;
     protected Status status;
     protected String description;
+    protected Duration duration;
+    protected LocalDateTime startTime;
 
-    public Subtask(String name, String description) {
-        super("", "");
+    public Subtask(String name, String description, int minutes, String startTime) {
+        super("", "", -3, "");
         this.description = description;
         this.name = name;
         status = Status.NEW;
+        duration = Duration.ofMinutes(minutes);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
     }
 
-    public Subtask(String name, String description, Status status) {
-        super("", "");
+    public Subtask(String name, String description, Status status, int minutes, String startTime) {
+        super("", "", -3, "");
         this.name = name;
         this.description = description;
         this.status = status;
+        duration = Duration.ofMinutes(minutes);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
+    }
+
+    public Subtask() {
+        super("", "", -3, "");
+        this.startTime = LocalDateTime.of(0, 0, 0, 0, 0);
+        this.duration = Duration.ofMinutes(0);
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration.toMinutes());
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
     }
 
     public Status getSubtaskStatus() {

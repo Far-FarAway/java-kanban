@@ -1,12 +1,34 @@
 package task;
 
 import java.util.Objects;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
+    protected final static DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     protected String name;
     protected String description;
     protected int id;
     protected Status status;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+
+    public Task(String name, String description, int minutes, String startTime) {
+        this.name = name;
+        this.description = description;
+        this.status = Status.NEW;
+        duration = Duration.ofMinutes(minutes);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
+    }
+
+    public Task(String name, String description, Status status, int minutes, String startTime) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        duration = Duration.ofMinutes(minutes);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
+    }
 
     public Task(String name, String description) {
         this.name = name;
@@ -20,22 +42,8 @@ public class Task {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        String result = "\n\nID: " + id;
-        if (name == null) {
-            result += "";
-        } else {
-            result += "\n" + name;
-        }
-
-        if (description == null) {
-            result += "";
-        } else {
-            result += "\nОписание: " + description;
-        }
-
-        return result + "\nСтатус: " + status + "\n";
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration.toMinutes());
     }
 
     public void setStatus(Status status) {
@@ -72,6 +80,24 @@ public class Task {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        String result = "\n\nID: " + id;
+        if (name == null) {
+            result += "";
+        } else {
+            result += "\n" + name;
+        }
+
+        if (description == null) {
+            result += "";
+        } else {
+            result += "\nОписание: " + description;
+        }
+
+        return result + "\nСтатус: " + status + "\n";
     }
 
     @Override
