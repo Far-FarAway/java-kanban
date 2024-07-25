@@ -23,39 +23,38 @@ public class Epic extends Task {
     protected Duration duration;
 
     public Epic(String name, String description) {
-        super(name, description);
-        findDurationAndStartEndTime();
+        super(name, description, -3, "");
+        this.startTime = LocalDateTime.of(0,0,0,0,0);
+        this.endTime = LocalDateTime.of(0,0,0,0,0);
+        this.duration = Duration.ofMinutes(0);
     }
 
     public Epic(String name, String description, Status status) {
-        super(name, description, status);
-        findDurationAndStartEndTime();
+        super(name, description, status, -3, "");
+        this.startTime = LocalDateTime.of(0,0,0,0,0);
+        this.endTime = LocalDateTime.of(0,0,0,0,0);
+        this.duration = Duration.ofMinutes(0);
     }
 
     private void findDurationAndStartEndTime() {
-        if (!subtasksMap.isEmpty()) {
-            LocalDateTime earliestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
-            LocalDateTime latestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
-            Duration duration = Duration.ofMinutes(0);
-            for (Subtask sub : subtasksMap.values()) {
-                LocalDateTime subStartTime = sub.getStartTime();
-                LocalDateTime subEndTime = sub.getEndTime();
-                if (subStartTime.isBefore(earliestTime)){
-                    earliestTime = subStartTime;
-                }
-                if (subEndTime.isAfter(latestTime)){
-                    latestTime = subEndTime;
-                }
-                duration.plus(sub.getDuration());
+        LocalDateTime earliestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
+        LocalDateTime latestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
+        Duration duration = Duration.ofMinutes(0);
+        for (Subtask sub : subtasksMap.values()) {
+            LocalDateTime subStartTime = sub.getStartTime();
+            LocalDateTime subEndTime = sub.getEndTime();
+            if (subStartTime.isBefore(earliestTime)){
+                earliestTime = subStartTime;
             }
-            this.startTime = earliestTime;
-            this.endTime = latestTime;
-            this.duration = duration;
-        } else {
-            startTime = LocalDateTime.of(0, 0, 0, 0, 0);
-            endTime = LocalDateTime.of(0, 0, 0, 0, 0);
-            duration = Duration.ofMinutes(0);
+            if (subEndTime.isAfter(latestTime)){
+                latestTime = subEndTime;
+            }
+            duration.plus(sub.getDuration());
         }
+        this.startTime = earliestTime;
+        this.endTime = latestTime;
+        this.duration = duration;
+
     }
 /*
 
@@ -84,6 +83,22 @@ public class Epic extends Task {
     public void addSubtask(int subId, Subtask subtask) {
         subtask.setId(subId);
         subtasksMap.put(subId, subtask);
+        findDurationAndStartEndTime();
+    }
+
+    @Override
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    @Override
+    public Duration getDuration() {
+        return duration;
     }
 
     @Override
