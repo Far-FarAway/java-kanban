@@ -26,6 +26,8 @@ public interface TaskManager {
 
     Task updateInformation(Task task, String nameOrDescription, String info);
 
+    Task updateTime(Task task, String durationOrStartTime, String time);
+
     @Override
     String toString();
 
