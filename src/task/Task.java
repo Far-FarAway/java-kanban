@@ -34,8 +34,16 @@ public class Task {
         return startTime.plusMinutes(duration.toMinutes());
     }
 
+    public void setDuration(int duration) {
+        this.duration = Duration.ofMinutes(duration);
+    }
+
     public Duration getDuration() {
         return duration;
+    }
+
+    public void setStartTime(String time){
+        this.startTime = LocalDateTime.parse(time, FORMATTER);
     }
 
     public LocalDateTime getStartTime() {

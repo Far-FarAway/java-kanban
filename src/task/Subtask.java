@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Subtask extends Task {
+    protected int epicId;
     protected String name;
     protected Status status;
     protected String description;
@@ -40,8 +41,20 @@ public class Subtask extends Task {
         return startTime.plusMinutes(duration.toMinutes());
     }
 
+    @Override
+    public void setStartTime(String time){
+        this.startTime = LocalDateTime.parse(time, FORMATTER);
+
+    }
+
     public LocalDateTime getStartTime() {
         return startTime;
+    }
+
+    @Override
+    public void setDuration(int duration) {
+        this.duration = Duration.ofMinutes(duration);
+
     }
 
     public Duration getDuration() {
@@ -58,6 +71,14 @@ public class Subtask extends Task {
         } else {
             this.status = status;
         }
+    }
+
+    public void setEpicId(int id) {
+        this.epicId = id;
+    }
+
+    public int getEpicId(){
+        return epicId;
     }
 
     public void setSubtaskName(String name) {
