@@ -23,16 +23,16 @@ public class Epic extends Task {
     protected Duration duration;
 
     public Epic(String name, String description) {
-        super(name, description, -3, "");
-        this.startTime = LocalDateTime.of(0,0,0,0,0);
-        this.endTime = LocalDateTime.of(0,0,0,0,0);
+        super(name, description, -3, "01.01.0001 00:00");
+        this.startTime = LocalDateTime.of(1,1,1,0,0);
+        this.endTime = LocalDateTime.of(1,1,1,0,0);
         this.duration = Duration.ofMinutes(0);
     }
 
     public Epic(String name, String description, Status status) {
-        super(name, description, status, -3, "");
-        this.startTime = LocalDateTime.of(0,0,0,0,0);
-        this.endTime = LocalDateTime.of(0,0,0,0,0);
+        super(name, description, status, -3, "01.01.0001 00:00");
+        this.startTime = LocalDateTime.of(1,1,1,0,0);
+        this.endTime = LocalDateTime.of(1,1,1,0,0);
         this.duration = Duration.ofMinutes(0);
     }
 

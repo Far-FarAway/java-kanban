@@ -13,7 +13,7 @@ public class Subtask extends Task {
     protected LocalDateTime startTime;
 
     public Subtask(String name, String description, int minutes, String startTime) {
-        super("", "", -3, "");
+        super("", "", -3, "01.01.0001 00:00");
         this.description = description;
         this.name = name;
         status = Status.NEW;
@@ -22,7 +22,7 @@ public class Subtask extends Task {
     }
 
     public Subtask(String name, String description, Status status, int minutes, String startTime) {
-        super("", "", -3, "");
+        super("", "", -3, "01.01.0001 00:00");
         this.name = name;
         this.description = description;
         this.status = status;
@@ -31,8 +31,8 @@ public class Subtask extends Task {
     }
 
     public Subtask() {
-        super("", "", -3, "");
-        this.startTime = LocalDateTime.of(0, 0, 0, 0, 0);
+        super("", "", -3, "01.01.0001 00:00");
+        this.startTime = LocalDateTime.of(1,1,1, 0, 0);
         this.duration = Duration.ofMinutes(0);
     }
 

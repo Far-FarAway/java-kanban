@@ -19,7 +19,7 @@ public class Task {
         this.description = description;
         this.status = Status.NEW;
         duration = Duration.ofMinutes(minutes);
-        this.startTime = LocalDateTime.parse(startTime, FORMATTER); //может вызвать исключение в эпиках и сабах
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
     }
 
     public Task(String name, String description, Status status, int minutes, String startTime) {
