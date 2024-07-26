@@ -45,7 +45,6 @@ public class InMemoryTaskManager implements TaskManager {
             }
         } else {
             System.out.println("Задачи не могут пересекаться по временени");
-            System.out.println(list);
         }
     }
 
@@ -68,7 +67,6 @@ public class InMemoryTaskManager implements TaskManager {
             prioritizedSet.add(epic);
         } else {
             System.out.println("Задачи не могут пересекаться по времени");
-            System.out.println(list);
         }
     }
 
