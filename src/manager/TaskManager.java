@@ -4,6 +4,7 @@ import task.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 public interface TaskManager {
     void addTask(Task o);
@@ -12,7 +13,9 @@ public interface TaskManager {
 
     List<Task> getTasksList();
 
-    void getPrioritizedTasks();
+    TreeSet<Task> getPrioritizedTasks();
+
+    void printPrioritizedTasks();
 
     void deleteAllTasks();
 

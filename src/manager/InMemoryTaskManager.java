@@ -73,7 +73,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void getPrioritizedTasks() {
+    public void printPrioritizedTasks() {
         for (Task task : prioritizedSet) {
             System.out.println(task);
             if (task instanceof Epic epic) {
@@ -83,6 +83,11 @@ public class InMemoryTaskManager implements TaskManager {
                 }
             }
         }
+    }
+
+    @Override
+    public TreeSet<Task> getPrioritizedTasks(){
+        return (TreeSet<Task>)prioritizedSet;
     }
 
     @Override
