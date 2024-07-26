@@ -88,7 +88,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     }
 
     @Override
-    public void addTask(Epic epic, Subtask... subtasks) {
+    public void addTask(Epic epic, Subtask subtasks) {
         super.addTask(epic, subtasks);
         save();
     }
