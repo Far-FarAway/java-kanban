@@ -55,10 +55,10 @@ class FileBackedTaskManagerTest {
     @Test
     public void shouldFillTasksMapFromFile() throws IOException {
         try (FileWriter fw = new FileWriter(tempFile.getPath())) {
-            fw.write("id,type,name,status,description,epic\n" +
-                    "1,TASK,Тренировка,NEW,Вот так вот,\n" +
-                    "2,EPIC,Попасть в исекай,NEW,Почему бы и нет,\n" +
-                    "3,SUBTASK,Найти белый грузовичок,NEW,Самый надежный способ,2");
+            fw.write("id,type,name,status,description,epic,startTime,duration\n" +
+                    "1,TASK,Тренировка,NEW,Вот так вот,,13.10.2024 12:00,90\n" +
+                    "2,EPIC,Попасть в исекай,NEW,Почему бы и нет,,31.12.2024 23:50,10\n" +
+                    "3,SUBTASK,Найти белый грузовичок,NEW,Самый надежный способ,2,31.12.2024 23:50,10");
         }
 
         ((FileBackedTaskManager) manager).loadFromFile();
