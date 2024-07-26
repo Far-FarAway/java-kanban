@@ -30,33 +30,46 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void addTask(Task o) {
-        if (!tasksMap.containsValue(o)) {
-            id++;
-            o.setId(id);
-            tasksMap.put(id, o);
+        List<Task> list = new ArrayList<>();
+        if(!(o instanceof Epic)) {
+            list = prioritizedSet.stream().filter(task -> findTimeCrossing(task, o)).toList();
         }
-        if (o.getStartTime().isAfter(LocalDateTime.of(2000,1,1,0,0))) {
-            prioritizedSet.add(o);
+        if(list.isEmpty()) {
+            if (!tasksMap.containsValue(o)) {
+                id++;
+                o.setId(id);
+                tasksMap.put(id, o);
+            }
+            if (o.getStartTime().isAfter(LocalDateTime.of(2000, 1, 1, 0, 0))) {
+                prioritizedSet.add(o);
+            }
+        } else {
+            System.out.println("Задачи не могут пересекаться по временени");
+            System.out.println(list);
         }
     }
 
 
     @Override
-    public void addTask(Epic epic, Subtask... subtasks) {
+    public void addTask(Epic epic, Subtask subtask) {
         if (!tasksMap.containsValue(epic)) {
             addTask(epic);
         }
 
         Map<Integer, Subtask> subMap = epic.getSubtasksMap();
 
-        for (Subtask subtask : subtasks) {
+        List<Subtask> list = subMap.values().stream().filter(sub -> findTimeCrossing(sub, subtask)).toList();
+
+        if(list.isEmpty()) {
             if (!subMap.containsValue(subtask)) {
                 id++;
                 epic.addSubtask(id, subtask);
             }
+            prioritizedSet.add(epic);
+        } else {
+            System.out.println("Задачи не могут пересекаться по времени");
+            System.out.println(list);
         }
-
-        prioritizedSet.add(epic);
     }
 
     @Override
@@ -81,6 +94,22 @@ public class InMemoryTaskManager implements TaskManager {
 
         return tasksList;
     }
+
+    @Override
+    public boolean findTimeCrossing(Task task1, Task task2){
+        if(!task1.equals(task2)) {
+            LocalDateTime startTask1 = task1.getStartTime();
+            LocalDateTime endTask1 = task1.getEndTime();
+            LocalDateTime startTask2 = task2.getStartTime();
+            LocalDateTime endTask2 = task2.getEndTime();
+            if(!endTask1.isAfter(startTask2)){
+                return false;
+            } else return endTask2.isAfter(startTask1);
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     public void deleteAllTasks() {
