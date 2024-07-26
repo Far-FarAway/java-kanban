@@ -60,7 +60,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     public void shouldGiveSubtasksMap() {
-        manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
+        manager.addTask(epic2, epic2Subtask1);
+        manager.addTask(epic2, epic2Subtask2);
 
         Map<Integer, Subtask> map = manager.getSubtasks(epic2);
 
