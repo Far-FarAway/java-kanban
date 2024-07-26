@@ -27,10 +27,10 @@ class FileBackedTaskManagerTest {
     @Test
     public void shouldFillFileAfterAddedTasks() {
 
-        Task task1 = new Task("Тренировка", "Вот так вот");
+        Task task1 = new Task("Тренировка", "Вот так вот", 90, "13.10.2024 12:00");
         Epic epic1 = new Epic("Попасть в исекай", "Почему бы и нет");
-        Subtask epic1Subtask1 = new Subtask("Найти белый грузовичок", "Самый надежный способ");
-
+        Subtask epic1Subtask1 = new Subtask("Найти белый грузовичок", "Самый надежный способ",
+                10, "31.12.2024 23:50");
         manager.addTask(task1);
         manager.addTask(epic1, epic1Subtask1);
 

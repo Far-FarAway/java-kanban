@@ -12,14 +12,16 @@ import java.util.Map;
 public class InMemoryTaskManagerTest {
     TaskManager manager;
 
-    Task task1 = new Task("Тренировка", "Вот так вот");
-    Task task2 = new Task("Why are we still here", "Just to suffer");
-    Epic epic1 = new Epic("Попасть в исекай", "Почему бы и нет");
-    Subtask epic1Subtask1 = new Subtask("Найти белый грузовичок", "Самый надежный способ");
-
+    Task task1 = new Task("Тренировка", "Вот так вот", 90, "13.10.2024 12:00");
+    Task task2 = new Task("Вымыть кота", "Найти и запихать в ванну", 240,
+            "14.10.2024 08:00");    Epic epic1 = new Epic("Попасть в исекай", "Почему бы и нет");
+    Subtask epic1Subtask1 = new Subtask("Найти белый грузовичок", "Самый надежный способ",
+            10, "31.12.2024 23:50");
     Epic epic2 = new Epic("Сходить погулять", "Нет, дома ты не погуляешь");
-    Subtask epic2Subtask1 = new Subtask("Найти мотивацию", "Чем больше, тем лучше");
-    Subtask epic2Subtask2 = new Subtask("Выйти погулять", "Это ножками делается");
+    Subtask epic2Subtask1 = new Subtask("Найти мотивацию", "Чем больше, тем лучше",
+            360, "05.01.2025 12:00");
+    Subtask epic2Subtask2 = new Subtask("Выйти погулять", "Это ножками делается",
+            3, "05.01.2025 18:00");
 
 
     @BeforeEach
@@ -38,7 +40,8 @@ public class InMemoryTaskManagerTest {
     public void shouldAddAndGiveEpicWithSubtask() {
         manager.addTask(epic1, epic1Subtask1);
 
-        manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
+        manager.addTask(epic2, epic2Subtask1);
+        manager.addTask(epic2, epic2Subtask2);
 
         assertEquals(epic1, manager.getTask(epic1.getId()));
         assertEquals(epic1Subtask1, manager.getSubtask(epic1, epic1Subtask1.getId()));
