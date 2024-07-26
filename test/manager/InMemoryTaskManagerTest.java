@@ -14,7 +14,8 @@ public class InMemoryTaskManagerTest {
 
     Task task1 = new Task("Тренировка", "Вот так вот", 90, "13.10.2024 12:00");
     Task task2 = new Task("Вымыть кота", "Найти и запихать в ванну", 240,
-            "14.10.2024 08:00");    Epic epic1 = new Epic("Попасть в исекай", "Почему бы и нет");
+            "14.10.2024 08:00");
+    Epic epic1 = new Epic("Попасть в исекай", "Почему бы и нет");
     Subtask epic1Subtask1 = new Subtask("Найти белый грузовичок", "Самый надежный способ",
             10, "31.12.2024 23:50");
     Epic epic2 = new Epic("Сходить погулять", "Нет, дома ты не погуляешь");
@@ -166,6 +167,38 @@ public class InMemoryTaskManagerTest {
 
         assertEquals(name, task1.getName());
         assertEquals(description, task1.getDescription());
+    }
+
+    @Test
+    public void shouldNotFindCrossing(){
+        Task task10 = new Task("s", "s", 90, "01.01.2025 12:00");
+        Task task20 = new Task("d", "d", 5, "01.01.2025 13:00");
+
+        manager.addTask(task10);
+        manager.addTask(task20);
+
+        assertEquals(1, manager.getPrioritizedTasks().size());
+
+        manager.updateTime(task10, "startTime", "01.01.2025 13:00");
+        manager.updateTime(task20, "startTime", "01.01.2025 12:00");
+
+        manager.addTask(task20);
+
+        assertEquals(2, manager.getPrioritizedTasks().size());
+        manager.printPrioritizedTasks();
+    }
+
+    @Test
+    public void shouldGiveCorrectPrioritizedList(){
+        manager.addTask(task2);
+        manager.addTask(task1);
+        manager.addTask(epic1);
+        manager.addTask(epic1, epic1Subtask1);
+        manager.addTask(epic2, epic2Subtask2);
+        manager.addTask(epic2, epic2Subtask1);
+
+        assertEquals(task1, manager.getPrioritizedTasks().getFirst());
+        assertEquals(epic2, manager.getPrioritizedTasks().getLast());
     }
 
 }
