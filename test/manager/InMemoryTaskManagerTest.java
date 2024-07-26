@@ -185,7 +185,6 @@ public class InMemoryTaskManagerTest {
         manager.addTask(task20);
 
         assertEquals(2, manager.getPrioritizedTasks().size());
-        manager.printPrioritizedTasks();
     }
 
     @Test
