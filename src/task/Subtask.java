@@ -2,7 +2,6 @@ package task;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class Subtask extends Task {
@@ -29,12 +28,6 @@ public class Subtask extends Task {
         this.status = status;
         duration = Duration.ofMinutes(minutes);
         this.startTime = LocalDateTime.parse(startTime, FORMATTER);
-    }
-
-    public Subtask() {
-        super("", "", -3, "01.01.0001 00:00");
-        this.startTime = LocalDateTime.of(1,1,1, 0, 0);
-        this.duration = Duration.ofMinutes(0);
     }
 
     public LocalDateTime getEndTime() {
