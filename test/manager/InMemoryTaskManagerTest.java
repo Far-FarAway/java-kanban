@@ -95,7 +95,8 @@ public class InMemoryTaskManagerTest {
 
     @Test
     public void shouldUpdateEpicAndSubtaskStatus() {
-        manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
+        manager.addTask(epic2, epic2Subtask1);
+        manager.addTask(epic2, epic2Subtask2);
 
         manager.updateStatus(epic2Subtask1);
         manager.updateStatus(epic2);
@@ -115,7 +116,8 @@ public class InMemoryTaskManagerTest {
         manager.addTask(task1);
         manager.addTask(task2);
         manager.addTask(epic1, epic1Subtask1);
-        manager.addTask(epic2, epic2Subtask1, epic2Subtask2);
+        manager.addTask(epic2, epic2Subtask1);
+        manager.addTask(epic2, epic2Subtask2);
 
         manager.deleteAllTasks();
 
