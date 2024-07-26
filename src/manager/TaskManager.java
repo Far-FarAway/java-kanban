@@ -12,6 +12,8 @@ public interface TaskManager {
 
     List<Task> getTasksList();
 
+    void getPrioritizedTasks();
+
     void deleteAllTasks();
 
     void deleteByIds(int... indexes);

@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
+import java.time.LocalDateTime;
 
 import task.*;
 
@@ -11,6 +14,18 @@ public class InMemoryTaskManager implements TaskManager {
     protected int id = 0;
     protected Map<Integer, Task> tasksMap = new HashMap<>();
     protected HistoryManager historyManager = Managers.getDefaultHistory();
+    protected Set<Task> prioritizedSet = new TreeSet<>((task1, task2) -> {
+        LocalDateTime time1 = task1.getStartTime();
+        LocalDateTime time2 = task2.getStartTime();
+
+        if (time1.isAfter(time2)) {
+            return 3;
+        } else if (time1.isBefore(time2)) {
+            return -3;
+        } else {
+            return 0;
+        }
+    });
 
 
     @Override
@@ -19,6 +34,9 @@ public class InMemoryTaskManager implements TaskManager {
             id++;
             o.setId(id);
             tasksMap.put(id, o);
+        }
+        if (o.getStartTime().isAfter(LocalDateTime.of(2000,1,1,0,0))) {
+            prioritizedSet.add(o);
         }
     }
 
@@ -29,12 +47,27 @@ public class InMemoryTaskManager implements TaskManager {
             addTask(epic);
         }
 
-        for (Subtask subtask : subtasks) {
-            Map<Integer, Subtask> subMap = epic.getSubtasksMap();
+        Map<Integer, Subtask> subMap = epic.getSubtasksMap();
 
+        for (Subtask subtask : subtasks) {
             if (!subMap.containsValue(subtask)) {
                 id++;
                 epic.addSubtask(id, subtask);
+            }
+        }
+
+        prioritizedSet.add(epic);
+    }
+
+    @Override
+    public void getPrioritizedTasks() {
+        for (Task task : prioritizedSet) {
+            System.out.println(task);
+            if (task instanceof Epic epic) {
+                System.out.println("Подзадачи: ");
+                for(Subtask sub : epic.getSubtasksMap().values()){
+                    System.out.println(sub);
+                }
             }
         }
     }
@@ -137,15 +170,15 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task updateTime(Task task, String durationOrStartTime, String time){
+    public Task updateTime(Task task, String durationOrStartTime, String time) {
         if (task.getClass() == Subtask.class) {
-            Subtask subtask = (Subtask)task; //Проверить, будет ли корректно менятся информация из за приведения типов
+            Subtask subtask = (Subtask) task; //Проверить, будет ли корректно менятся информация из за приведения типов
             if (durationOrStartTime.equals("duration")) {
                 subtask.setDuration(Integer.parseInt(time));
             } else if (durationOrStartTime.equals("startTime")) {
                 subtask.setStartTime(time);
             }
-            Epic epic = (Epic)tasksMap.get(subtask.getEpicId());
+            Epic epic = (Epic) tasksMap.get(subtask.getEpicId());
             epic.findDurationAndStartEndTime();
         } else {
             if (durationOrStartTime.equals("duration")) {
