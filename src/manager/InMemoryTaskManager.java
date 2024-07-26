@@ -78,7 +78,7 @@ public class InMemoryTaskManager implements TaskManager {
             System.out.println(task);
             if (task instanceof Epic epic) {
                 System.out.println("Подзадачи: ");
-                for(Subtask sub : epic.getSubtasksMap().values()){
+                for(Subtask sub : epic.getPrioritizedSubSet()){
                     System.out.println(sub);
                 }
             }

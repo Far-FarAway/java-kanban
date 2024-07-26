@@ -6,6 +6,18 @@ import java.time.Duration;
 
 
 public class Epic extends Task {
+    protected Set<Subtask> prioritizedSubSet = new TreeSet<>((sub1, sub2) -> {
+        LocalDateTime time1 = sub1.getStartTime();
+        LocalDateTime time2 = sub2.getStartTime();
+
+        if (time1.isAfter(time2)) {
+            return 3;
+        } else if (time1.isBefore(time2)) {
+            return -3;
+        } else {
+            return 0;
+        }
+    });
     protected Map<Integer, Subtask> subtasksMap = new HashMap<>();
     protected LocalDateTime endTime;
 
@@ -46,12 +58,19 @@ public class Epic extends Task {
         subtask.setId(subId);
         subtasksMap.put(subId, subtask);
         subtask.setEpicId(id);
+        if (subtask.getStartTime().isAfter(LocalDateTime.of(2000, 1, 1, 0, 0))) {
+            prioritizedSubSet.add(subtask);
+        }
         findDurationAndStartEndTime();
     }
 
     @Override
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+
+    public TreeSet<Subtask> getPrioritizedSubSet() {
+        return (TreeSet<Subtask>) prioritizedSubSet;
     }
 
     @Override
