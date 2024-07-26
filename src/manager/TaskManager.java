@@ -8,7 +8,7 @@ import java.util.Map;
 public interface TaskManager {
     void addTask(Task o);
 
-    void addTask(Epic epic, Subtask... subtasks);
+    void addTask(Epic epic, Subtask subtasks);
 
     List<Task> getTasksList();
 
@@ -38,4 +38,6 @@ public interface TaskManager {
     String printHistory();
 
     List<Task> getHistory();
+
+    boolean findTimeCrossing(Task task1, Task task2);
 }
