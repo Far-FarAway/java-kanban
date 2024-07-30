@@ -33,10 +33,10 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public void addTask(Task o) {
         List<Task> list = new ArrayList<>();
-        if(!(o instanceof Epic)) {
+        if (!(o instanceof Epic)) {
             list = prioritizedSet.stream().filter(task -> findTimeCrossing(task, o)).toList();
         }
-        if(list.isEmpty()) {
+        if (list.isEmpty()) {
             if (!tasksMap.containsValue(o)) {
                 id++;
                 o.setId(id);
@@ -61,7 +61,7 @@ public class InMemoryTaskManager implements TaskManager {
 
         List<Subtask> list = subMap.values().stream().filter(sub -> findTimeCrossing(sub, subtask)).toList();
 
-        if(list.isEmpty()) {
+        if (list.isEmpty()) {
             if (!subMap.containsValue(subtask)) {
                 id++;
                 epic.addSubtask(id, subtask);
@@ -78,7 +78,7 @@ public class InMemoryTaskManager implements TaskManager {
             System.out.println(task);
             if (task instanceof Epic epic) {
                 System.out.println("Подзадачи: ");
-                for(Subtask sub : epic.getPrioritizedSubSet()){
+                for (Subtask sub : epic.getPrioritizedSubSet()) {
                     System.out.println(sub);
                 }
             }
@@ -86,24 +86,24 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public TreeSet<Task> getPrioritizedTasks(){
-        return (TreeSet<Task>)prioritizedSet;
+    public TreeSet<Task> getPrioritizedTasks() {
+        return (TreeSet<Task>) prioritizedSet;
     }
 
     @Override
     public ArrayList<Task> getTasksList() {
-        return (ArrayList<Task>)tasksMap.values().stream().peek(task -> historyManager.add(task))
+        return (ArrayList<Task>) tasksMap.values().stream().peek(task -> historyManager.add(task))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public boolean findTimeCrossing(Task task1, Task task2){
-        if(!task1.equals(task2)) {
+    public boolean findTimeCrossing(Task task1, Task task2) {
+        if (!task1.equals(task2)) {
             LocalDateTime startTask1 = task1.getStartTime();
             LocalDateTime endTask1 = task1.getEndTime();
             LocalDateTime startTask2 = task2.getStartTime();
             LocalDateTime endTask2 = task2.getEndTime();
-            if(!endTask1.isAfter(startTask2)){
+            if (!endTask1.isAfter(startTask2)) {
                 return false;
             } else return endTask2.isAfter(startTask1);
         } else {

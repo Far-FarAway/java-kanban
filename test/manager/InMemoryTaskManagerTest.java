@@ -170,7 +170,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void shouldNotFindCrossing(){
+    public void shouldNotFindCrossing() {
         Task task10 = new Task("s", "s", 90, "01.01.2025 12:00");
         Task task20 = new Task("d", "d", 5, "01.01.2025 13:00");
 
@@ -188,7 +188,7 @@ public class InMemoryTaskManagerTest {
     }
 
     @Test
-    public void shouldGiveCorrectPrioritizedList(){
+    public void shouldGiveCorrectPrioritizedList() {
         manager.addTask(task2);
         manager.addTask(task1);
         manager.addTask(epic1);
