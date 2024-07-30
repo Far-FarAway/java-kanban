@@ -1,5 +1,6 @@
 package manager;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 import task.*;
 
@@ -90,12 +92,8 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public ArrayList<Task> getTasksList() {
-        ArrayList<Task> tasksList = new ArrayList<>(tasksMap.values());
-        for (Task task : tasksList) {
-            historyManager.add(task);
-        }
-
-        return tasksList;
+        return (ArrayList<Task>)tasksMap.values().stream().peek(task -> historyManager.add(task))
+                .collect(Collectors.toList());
     }
 
     @Override
