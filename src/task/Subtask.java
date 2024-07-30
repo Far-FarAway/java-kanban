@@ -35,7 +35,7 @@ public class Subtask extends Task {
     }
 
     @Override
-    public void setStartTime(String time){
+    public void setStartTime(String time) {
         this.startTime = LocalDateTime.parse(time, FORMATTER);
 
     }
@@ -70,7 +70,7 @@ public class Subtask extends Task {
         this.epicId = id;
     }
 
-    public int getEpicId(){
+    public int getEpicId() {
         return epicId;
     }
 
@@ -94,16 +94,16 @@ public class Subtask extends Task {
     public String toString() {
         StringBuilder result = new StringBuilder("\n\tID: " + id);
 
-        result.append(name == null ? "":"\n\t" + name);
-        result.append(description == null ? "":"\n\tОписание: " + description);
+        result.append(name == null ? "" : "\n\t" + name);
+        result.append(description == null ? "" : "\n\tОписание: " + description);
         result.append("\n\tСтатус: ").append(status);
 
-        if(startTime.getYear() != 1) {
+        if (startTime.getYear() != 1) {
             result.append("\n\tДата начала: ").append(startTime.format(FORMATTER));
             result.append("\n\tДата окончания: ").append(getEndTime().format(FORMATTER));
         }
 
-        result.append(duration.toMinutes() == 0 ? "":"\n\tПродолжительность: " + duration.toMinutes());
+        result.append(duration.toMinutes() == 0 ? "" : "\n\tПродолжительность: " + duration.toMinutes());
 
         return result.toString();
     }

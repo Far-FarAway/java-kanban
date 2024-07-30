@@ -23,12 +23,12 @@ public class Epic extends Task {
 
     public Epic(String name, String description) {
         super(name, description, 0, "01.01.0001 00:00");
-        this.endTime = LocalDateTime.of(1,1,1,0,0);
+        this.endTime = LocalDateTime.of(1, 1, 1, 0, 0);
     }
 
     public Epic(String name, String description, Status status) {
         super(name, description, status, 0, "01.01.0001 00:00");
-        this.endTime = LocalDateTime.of(1,1,1,0,0);
+        this.endTime = LocalDateTime.of(1, 1, 1, 0, 0);
     }
 
     public void findDurationAndStartEndTime() {
@@ -37,10 +37,10 @@ public class Epic extends Task {
         for (Subtask sub : subtasksMap.values()) {
             LocalDateTime subStartTime = sub.getStartTime();
             LocalDateTime subEndTime = sub.getEndTime();
-            if (subStartTime.isBefore(earliestTime)){
+            if (subStartTime.isBefore(earliestTime)) {
                 earliestTime = subStartTime;
             }
-            if (subEndTime.isAfter(latestTime)){
+            if (subEndTime.isAfter(latestTime)) {
                 latestTime = subEndTime;
             }
         }
@@ -77,16 +77,16 @@ public class Epic extends Task {
     public String toString() {
         StringBuilder result = new StringBuilder("\nID: " + id);
 
-        result.append(name == null ? "":"\n" + name);
-        result.append(description == null ? "":"\nОписание: " + description);
+        result.append(name == null ? "" : "\n" + name);
+        result.append(description == null ? "" : "\nОписание: " + description);
         result.append("\nСтатус: ").append(status);
 
-        if(startTime.getYear() != 1) {
+        if (startTime.getYear() != 1) {
             result.append("\nДата начала: ").append(startTime.format(FORMATTER));
             result.append("\nДата окончания: ").append(endTime.format(FORMATTER));
         }
 
-        result.append(duration.toMinutes() == 0 ? "":"\nПродолжительность: " + duration.toMinutes());
+        result.append(duration.toMinutes() == 0 ? "" : "\nПродолжительность: " + duration.toMinutes());
 
         return result.toString();
     }
