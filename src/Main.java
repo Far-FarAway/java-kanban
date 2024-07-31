@@ -29,62 +29,7 @@ public class Main {
         manager.addTask(epic2, epic2Subtask2);
         manager.addTask(epic2, epic2Subtask1);
 
-        //System.out.println(manager);
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 50; j++) {
-                if (i % 2 == 0) {
-                    if (j % 2 == 0) {
-                        System.out.print("øøø");
-                    } else {
-                        System.out.print(" ");
-                    }
-                } else {
-                    if (j % 2 == 0) {
-                        System.out.print("\t");
-                    } else {
-                        System.out.print("ø");
-                    }
-                }
-            }
-            System.out.println();
-        }
-
         System.out.println("\n");
         manager.getPrioritizedTasks();
-        /*
-        System.out.println("\nУдаление задач");
-        manager.deleteByIds(2,3);
-
-        System.out.println("Обновление статусов");
-        manager.updateStatus(task1);
-        manager.updateStatus(epic2Subtask1);
-        manager.updateStatus(epic2);
-
-        System.out.println(manager);
-
-        System.out.println("\nДобавление удаленных и новых задач ");
-        manager.addTask(epic1);
-        manager.addTask(task2);
-        manager.addTask(task3);
-
-        System.out.println(manager);
-
-        System.out.println("Получение списка задач\n" + manager.getTasksList());
-
-        System.out.println("Получение определенной задачи\n" + manager.getTask(2));
-
-        System.out.println("Получение подзадач эпика\n" + manager.getSubtasks(epic2));
-
-        System.out.println("Обновление задачи\n");
-        manager.updateTask(3, manager.updateInformation(manager.getTask(1), "description",
-                "Он прячется в шкафу"));
-
-        System.out.println(manager);
-
-        manager.deleteAllTasks();
-
-        System.out.println(manager);
-        */
     }
 }
