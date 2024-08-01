@@ -32,8 +32,13 @@ public class Epic extends Task {
     }
 
     public void fillDurationAndStartEndTime() {
-        LocalDateTime earliestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
-        LocalDateTime latestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
+        Optional<Subtask> subOptional = subtasksMap.values().stream().findFirst();
+        LocalDateTime earliestTime = subOptional.orElse(new Subtask("", "", 3,
+                "3.03.0003 00:00")).getStartTime();
+        LocalDateTime latestTime = subOptional.orElse(new Subtask("", "", 3,
+                "3.03.0003 00:00")).getEndTime();
+
+
         for (Subtask sub : subtasksMap.values()) {
             LocalDateTime subStartTime = sub.getStartTime();
             LocalDateTime subEndTime = sub.getEndTime();
