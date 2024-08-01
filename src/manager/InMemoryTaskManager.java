@@ -208,7 +208,7 @@ public class InMemoryTaskManager implements TaskManager {
                 subtask.setStartTime(time);
             }
             Epic epic = (Epic) tasksMap.get(subtask.getEpicId());
-            epic.findDurationAndStartEndTime();
+            epic.fillDurationAndStartEndTime();
         } else {
             if (durationOrStartTime.equals("duration")) {
                 task.setDuration(Integer.parseInt(time));
