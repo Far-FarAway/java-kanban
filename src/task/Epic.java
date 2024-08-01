@@ -31,7 +31,7 @@ public class Epic extends Task {
         this.endTime = LocalDateTime.of(1, 1, 1, 0, 0);
     }
 
-    public void findDurationAndStartEndTime() {
+    public void fillDurationAndStartEndTime() {
         LocalDateTime earliestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
         LocalDateTime latestTime = subtasksMap.values().stream().findFirst().get().getStartTime();
         for (Subtask sub : subtasksMap.values()) {
@@ -61,7 +61,7 @@ public class Epic extends Task {
         if (subtask.getStartTime().isAfter(LocalDateTime.of(2000, 1, 1, 0, 0))) {
             prioritizedSubSet.add(subtask);
         }
-        findDurationAndStartEndTime();
+        fillDurationAndStartEndTime();
     }
 
     @Override
