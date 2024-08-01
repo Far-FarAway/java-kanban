@@ -47,7 +47,6 @@ public class Subtask extends Task {
     @Override
     public void setDuration(int duration) {
         this.duration = Duration.ofMinutes(duration);
-
     }
 
     public Duration getDuration() {

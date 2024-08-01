@@ -201,7 +201,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task updateTime(Task task, String durationOrStartTime, String time) {
         if (task.getClass() == Subtask.class) {
-            Subtask subtask = (Subtask) task; //Проверить, будет ли корректно менятся информация из за приведения типов
+            Subtask subtask = (Subtask) task;
             if (durationOrStartTime.equals("duration")) {
                 subtask.setDuration(Integer.parseInt(time));
             } else if (durationOrStartTime.equals("startTime")) {
