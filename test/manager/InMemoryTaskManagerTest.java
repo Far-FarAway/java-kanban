@@ -179,12 +179,14 @@ public class InMemoryTaskManagerTest {
 
         assertEquals(1, manager.getPrioritizedTasks().size());
 
-        manager.updateTime(task10, "startTime", "01.01.2025 13:00");
-        manager.updateTime(task20, "startTime", "01.01.2025 12:00");
 
-        manager.addTask(task20);
+        Task task30 = new Task("s", "s", 90, "01.01.2025 13:00");
+        Task task40 = new Task("d", "d", 5, "01.01.2025 12:00");
 
-        assertEquals(2, manager.getPrioritizedTasks().size());
+        manager.addTask(task30);
+        manager.addTask(task40);
+
+        assertEquals(1, manager.getPrioritizedTasks().size());
     }
 
     @Test
