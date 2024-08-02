@@ -199,28 +199,6 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public Task updateTime(Task task, String durationOrStartTime, String time) {
-        if (task.getClass() == Subtask.class) {
-            Subtask subtask = (Subtask) task;
-            if (durationOrStartTime.equals("duration")) {
-                subtask.setDuration(Integer.parseInt(time));
-            } else if (durationOrStartTime.equals("startTime")) {
-                subtask.setStartTime(time);
-            }
-            Epic epic = (Epic) tasksMap.get(subtask.getEpicId());
-            epic.fillDurationAndStartEndTime();
-        } else {
-            if (durationOrStartTime.equals("duration")) {
-                task.setDuration(Integer.parseInt(time));
-            } else if (durationOrStartTime.equals("startTime")) {
-                task.setStartTime(time);
-            }
-        }
-
-        return task;
-    }
-
-    @Override
     public String toString() {
         StringBuilder result = new StringBuilder("\n");
         for (Task task : tasksMap.values()) {

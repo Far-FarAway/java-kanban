@@ -23,15 +23,15 @@ public class Epic extends Task {
 
     public Epic(String name, String description) {
         super(name, description, 0, "01.01.0001 00:00");
-        this.endTime = LocalDateTime.of(1, 1, 1, 0, 0);
+        fillDurationAndStartEndTime();
     }
 
     public Epic(String name, String description, Status status) {
         super(name, description, status, 0, "01.01.0001 00:00");
-        this.endTime = LocalDateTime.of(1, 1, 1, 0, 0);
+        fillDurationAndStartEndTime();
     }
 
-    public void fillDurationAndStartEndTime() {
+    private void fillDurationAndStartEndTime() {
         Optional<Subtask> subOptional = subtasksMap.values().stream().findFirst();
         LocalDateTime earliestTime = subOptional.orElse(new Subtask("", "", 3,
                 "03.03.0003 00:00")).getStartTime();
