@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 import task.*;
 
@@ -11,43 +15,101 @@ public class InMemoryTaskManager implements TaskManager {
     protected int id = 0;
     protected Map<Integer, Task> tasksMap = new HashMap<>();
     protected HistoryManager historyManager = Managers.getDefaultHistory();
+    protected Set<Task> prioritizedSet = new TreeSet<>((task1, task2) -> {
+        LocalDateTime time1 = task1.getStartTime();
+        LocalDateTime time2 = task2.getStartTime();
+
+        if (time1.isAfter(time2)) {
+            return 3;
+        } else if (time1.isBefore(time2)) {
+            return -3;
+        } else {
+            return 0;
+        }
+    });
 
 
     @Override
     public void addTask(Task o) {
-        if (!tasksMap.containsValue(o)) {
-            id++;
-            o.setId(id);
-            tasksMap.put(id, o);
+        List<Task> list = new ArrayList<>();
+        if (!(o instanceof Epic)) {
+            list = prioritizedSet.stream().filter(task -> findTimeCrossing(task, o)).toList();
+        }
+        if (list.isEmpty()) {
+            if (!tasksMap.containsValue(o)) {
+                id++;
+                o.setId(id);
+                tasksMap.put(id, o);
+            }
+            if (o.getStartTime().isAfter(LocalDateTime.of(2000, 1, 1, 0, 0))) {
+                prioritizedSet.add(o);
+            }
+        } else {
+            System.out.println("Задачи не могут пересекаться по временени");
         }
     }
 
 
     @Override
-    public void addTask(Epic epic, Subtask... subtasks) {
+    public void addTask(Epic epic, Subtask subtask) {
         if (!tasksMap.containsValue(epic)) {
             addTask(epic);
         }
 
-        for (Subtask subtask : subtasks) {
-            Map<Integer, Subtask> subMap = epic.getSubtasksMap();
+        Map<Integer, Subtask> subMap = epic.getSubtasksMap();
 
+        List<Subtask> list = subMap.values().stream().filter(sub -> findTimeCrossing(sub, subtask)).toList();
+
+        if (list.isEmpty()) {
             if (!subMap.containsValue(subtask)) {
                 id++;
                 epic.addSubtask(id, subtask);
+            }
+            prioritizedSet.add(epic);
+        } else {
+            System.out.println("Задачи не могут пересекаться по времени");
+        }
+    }
+
+    @Override
+    public void printPrioritizedTasks() {
+        for (Task task : prioritizedSet) {
+            System.out.println(task);
+            if (task instanceof Epic epic) {
+                System.out.println("Подзадачи: ");
+                for (Subtask sub : epic.getPrioritizedSubSet()) {
+                    System.out.println(sub);
+                }
             }
         }
     }
 
     @Override
-    public ArrayList<Task> getTasksList() {
-        ArrayList<Task> tasksList = new ArrayList<>(tasksMap.values());
-        for (Task task : tasksList) {
-            historyManager.add(task);
-        }
-
-        return tasksList;
+    public TreeSet<Task> getPrioritizedTasks() {
+        return (TreeSet<Task>) prioritizedSet;
     }
+
+    @Override
+    public ArrayList<Task> getTasksList() {
+        return (ArrayList<Task>) tasksMap.values().stream().peek(task -> historyManager.add(task))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean findTimeCrossing(Task task1, Task task2) {
+        if (!task1.equals(task2)) {
+            LocalDateTime startTask1 = task1.getStartTime();
+            LocalDateTime endTask1 = task1.getEndTime();
+            LocalDateTime startTask2 = task2.getStartTime();
+            LocalDateTime endTask2 = task2.getEndTime();
+            if (!endTask1.isAfter(startTask2)) {
+                return false;
+            } else return endTask2.isAfter(startTask1);
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     public void deleteAllTasks() {
@@ -119,18 +181,17 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task updateInformation(Task task, String nameOrDescription, String info) {
-
-        if (task.getClass() == Task.class) {
-            if (nameOrDescription.equals("name")) {
-                task.setName(info);
-            } else if (nameOrDescription.equals("description")) {
-                task.setDescription(info);
-            }
-        } else if (task.getClass() == Subtask.class) {
+        if (task.getClass() == Subtask.class) {
             if (nameOrDescription.equals("name")) {
                 ((Subtask) task).setSubtaskName(info);
             } else if (nameOrDescription.equals("description")) {
                 ((Subtask) task).setSubtaskDescription(info);
+            }
+        } else {
+            if (nameOrDescription.equals("name")) {
+                task.setName(info);
+            } else if (nameOrDescription.equals("description")) {
+                task.setDescription(info);
             }
         }
 
@@ -142,13 +203,13 @@ public class InMemoryTaskManager implements TaskManager {
         StringBuilder result = new StringBuilder("\n");
         for (Task task : tasksMap.values()) {
             result.append("\n").append(task);
-            if (task instanceof Epic) {
+            if (task instanceof Epic epic) {
                 result.append("\nПодзадачи: \n");
 
-                if (((Epic) task).getSubtasksMap().isEmpty()) {
+                if (epic.getSubtasksMap().isEmpty()) {
                     result.append("\nПодзадач пока нет\n");
                 } else {
-                    for (Subtask subtask : ((Epic) task).getSubtasksMap().values()) {
+                    for (Subtask subtask : epic.getSubtasksMap().values()) {
                         result.append(subtask).append("\n");
                     }
                 }

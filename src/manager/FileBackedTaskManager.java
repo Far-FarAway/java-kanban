@@ -6,7 +6,11 @@ import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.nio.file.Path;
+
 import task.Task;
+
+import static task.Task.FORMATTER;
+
 import task.Epic;
 import task.Subtask;
 import task.Status;
@@ -20,20 +24,24 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
 
     private void save() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            bw.write("id,type,name,status,description,epic\n");
+            bw.write("id,type,name,status,description,epic,startTime,duration\n");
             for (Task task : tasksMap.values()) {
                 if (task instanceof Epic epic) {
                     bw.write(epic.getId() + ",EPIC," + epic.getName() + "," + epic.getStatus() + "," +
-                            epic.getDescription() + ",\n");
+                            epic.getDescription() + ",," + epic.getStartTime().format(FORMATTER) + "," +
+                            epic.getDuration().toMinutes() + "\n");
                     if (!epic.getSubtasksMap().isEmpty()) {
                         for (Subtask subtask : epic.getSubtasksMap().values()) {
-                            bw.write(subtask.getId() + ",SUBTASK," + subtask.getSubtaskName() + "," + subtask.getSubtaskStatus() +
-                                    "," + subtask.getSubtaskDescription() + "," + epic.getId() + "\n");
+                            bw.write(subtask.getId() + ",SUBTASK," + subtask.getSubtaskName() + "," +
+                                    subtask.getSubtaskStatus() + "," + subtask.getSubtaskDescription() + "," +
+                                    epic.getId() + "," + subtask.getStartTime().format(FORMATTER) + "," +
+                                    subtask.getDuration().toMinutes() + "\n");
                         }
                     }
                 } else {
                     bw.write(task.getId() + ",TASK," + task.getName() + "," + task.getStatus() +
-                            "," + task.getDescription() + ",\n");
+                            "," + task.getDescription() + ",," + task.getStartTime().format(FORMATTER) + "," +
+                            task.getDuration().toMinutes() + "\n");
                 }
             }
         } catch (IOException ex) {
@@ -48,7 +56,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                 String[] info = br.readLine().split(",");
                 if (info.length > 1) {
                     if (info[1].equals("TASK")) {
-                        Task task = new Task(info[2], info[4], Status.valueOf(info[3]));
+                        Task task = new Task(info[2], info[4], Status.valueOf(info[3]), Integer.parseInt(info[7]),
+                                info[6]);
                         int id = Integer.parseInt(info[0]);
                         task.setId(id);
                         tasksMap.put(id, task);
@@ -59,7 +68,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
                         tasksMap.put(id, epic);
                     } else {
                         Epic epic = (Epic) tasksMap.get(Integer.parseInt(info[5]));
-                        Subtask subtask = new Subtask(info[2], info[4], Status.valueOf(info[3]));
+                        Subtask subtask = new Subtask(info[2], info[4], Status.valueOf(info[3]),
+                                Integer.parseInt(info[7]), info[6]);
                         int id = Integer.parseInt(info[0]);
                         subtask.setId(id);
                         epic.addSubtask(id, subtask);
@@ -78,7 +88,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager implements TaskMa
     }
 
     @Override
-    public void addTask(Epic epic, Subtask... subtasks) {
+    public void addTask(Epic epic, Subtask subtasks) {
         super.addTask(epic, subtasks);
         save();
     }

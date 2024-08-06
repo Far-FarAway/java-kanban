@@ -4,13 +4,18 @@ import task.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 public interface TaskManager {
     void addTask(Task o);
 
-    void addTask(Epic epic, Subtask... subtasks);
+    void addTask(Epic epic, Subtask subtasks);
 
     List<Task> getTasksList();
+
+    TreeSet<Task> getPrioritizedTasks();
+
+    void printPrioritizedTasks();
 
     void deleteAllTasks();
 
@@ -34,4 +39,6 @@ public interface TaskManager {
     String printHistory();
 
     List<Task> getHistory();
+
+    boolean findTimeCrossing(Task task1, Task task2);
 }

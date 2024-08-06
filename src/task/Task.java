@@ -1,41 +1,53 @@
 package task;
 
 import java.util.Objects;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Task {
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
     protected String name;
     protected String description;
     protected int id;
     protected Status status;
+    protected Duration duration;
+    protected LocalDateTime startTime;
 
-    public Task(String name, String description) {
+    public Task(String name, String description, int minutes, String startTime) {
         this.name = name;
         this.description = description;
         this.status = Status.NEW;
+        duration = Duration.ofMinutes(minutes);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
     }
 
-    public Task(String name, String description, Status status) {
+    public Task(String name, String description, Status status, int minutes, String startTime) {
         this.name = name;
         this.description = description;
         this.status = status;
+        duration = Duration.ofMinutes(minutes);
+        this.startTime = LocalDateTime.parse(startTime, FORMATTER);
     }
 
-    @Override
-    public String toString() {
-        String result = "\n\nID: " + id;
-        if (name == null) {
-            result += "";
-        } else {
-            result += "\n" + name;
-        }
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration.toMinutes());
+    }
 
-        if (description == null) {
-            result += "";
-        } else {
-            result += "\nОписание: " + description;
-        }
+    public void setDuration(int duration) {
+        this.duration = Duration.ofMinutes(duration);
+    }
 
-        return result + "\nСтатус: " + status + "\n";
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setStartTime(String time) {
+        this.startTime = LocalDateTime.parse(time, FORMATTER);
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
     public void setStatus(Status status) {
@@ -72,6 +84,24 @@ public class Task {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("\nID: " + id);
+
+        result.append(name == null ? "" : "\n" + name);
+        result.append(description == null ? "" : "\nОписание: " + description);
+        result.append("\nСтатус: ").append(status);
+
+        if (startTime.getYear() != 1) {
+            result.append("\nДата начала: ").append(startTime.format(FORMATTER));
+            result.append("\nДата окончания: ").append(getEndTime().format(FORMATTER));
+        }
+
+        result.append(duration.toMinutes() == 0 ? "" : "\nПродолжительность: " + duration.toMinutes());
+
+        return result.toString();
     }
 
     @Override
